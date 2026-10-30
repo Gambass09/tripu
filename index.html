@@ -19,11 +19,62 @@ button:hover{border-color:#555}
 button:active{background:#1d1d1d}
 button:disabled{opacity:.5;cursor:not-allowed}
 input,select{background:#111;color:var(--text);border:1px solid #333;border-radius:9px;padding:11px 12px;min-width:0;max-width:100%;width:100%;font-size:16px;min-height:44px}
-input[type="date"]{min-width:0;max-width:100%;width:100%}
-input[type="date"]::-webkit-date-and-time-value{min-width:0;text-align:left}
-input[type="date"]::-webkit-calendar-picker-indicator{padding:0;margin-left:4px}
-input[type="checkbox"]{min-height:auto;padding:0;width:18px;height:18px;accent-color:var(--green)}
+input[type="checkbox"]{min-height:auto;padding:0;width:18px;height:18px;accent-color:var(--green);flex-shrink:0}
 input:focus,select:focus,button:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+
+/* ===== FIX DEFINITIVO PARA input[type="date"] ===== */
+input[type="date"]{
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  appearance:none;
+  display:block;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+  overflow:hidden!important;
+  white-space:nowrap;
+  font-family:inherit;
+  font-size:16px;
+  line-height:1.3;
+  padding:11px 12px;
+  border:1px solid #333;
+  border-radius:9px;
+  background:#111;
+  color:var(--text);
+  min-height:44px;
+  text-align:left;
+}
+input[type="date"]::-webkit-datetime-edit,
+input[type="date"]::-webkit-datetime-edit-fields-wrapper,
+input[type="date"]::-webkit-datetime-edit-text,
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field{
+  min-width:0!important;
+  max-width:100%!important;
+  padding:0!important;
+  margin:0!important;
+  overflow:hidden!important;
+  box-sizing:border-box;
+}
+input[type="date"]::-webkit-date-and-time-value{
+  min-width:0!important;
+  max-width:100%!important;
+  text-align:left!important;
+  padding:0!important;
+  margin:0!important;
+  overflow:hidden!important;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+input[type="date"]::-webkit-calendar-picker-indicator{
+  padding:0!important;
+  margin:0 0 0 4px!important;
+  opacity:.7;
+  cursor:pointer;
+  flex-shrink:0;
+}
 
 .app{max-width:1100px;margin:auto;padding:24px 16px 48px;padding:24px max(16px,env(safe-area-inset-right)) calc(48px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:20px}
@@ -43,12 +94,13 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--green);out
 .mobile-only{display:none}
 
 .layout{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:16px}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px;min-width:0}
+.layout>main,.layout>aside{min-width:0;max-width:100%}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px;min-width:0;max-width:100%}
 .panel h2{font-size:16px;margin:0}
 .panelhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px;flex-wrap:wrap}
-.dayhead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding-bottom:16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.dayhead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding-bottom:16px;border-bottom:1px solid var(--line);flex-wrap:wrap;min-width:0;max-width:100%}
+.dayhead>div,.dayhead>input{min-width:0;max-width:100%}
 .dayhead h2{margin-bottom:4px}
-.dayhead > *{min-width:0;max-width:100%}
 .date-input{width:auto;max-width:160px;min-width:0}
 .search-input{max-width:220px}
 .person{padding:16px 0;border-bottom:1px solid var(--line)}
@@ -73,9 +125,9 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--green);out
 
 .field{display:grid;gap:5px;margin-bottom:11px;min-width:0;max-width:100%}
 .field label{font-size:12px;color:var(--muted)}
-.field input,.field select{min-width:0;max-width:100%}
-.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.formgrid > *{min-width:0;max-width:100%}
+.field input,.field select{min-width:0;max-width:100%;width:100%}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;min-width:0;max-width:100%}
+.formgrid>*{min-width:0;max-width:100%}
 
 .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
 table{width:100%;border-collapse:collapse;min-width:540px}
@@ -115,32 +167,22 @@ td .smallbtn{padding:8px 12px;font-size:13px;min-height:36px}
 
 .person-edit{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
 .person-edit:last-child{border-bottom:0}
+.person-edit input{min-width:0}
 .person-edit .row-actions{grid-column:1/-1;display:flex;gap:8px;margin-top:4px}
 .person-edit .row-actions button{flex:1;min-height:44px}
 
-/* ---------- ≤ 780px ---------- */
 @media(max-width:780px){
   .layout{grid-template-columns:1fr}
   .app{padding:16px 12px 40px;padding:16px max(12px,env(safe-area-inset-right)) calc(40px + env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left))}
   .panel{padding:14px;border-radius:16px}
-  /* Ocultar tarjetas de resumen “X te debe / Y te debe / Total” */
   .cards{display:none}
   .calday{min-height:62px;padding:5px}
   .calday .names{display:none}
   .auth-card{margin:20px auto}
 }
 
-/* ---------- ≤ 640px ---------- */
 @media(max-width:640px){
-  /* Cabecera: [☰] TripU  +  botones debajo */
-  .top{
-    display:grid;
-    grid-template-columns:auto 1fr;
-    grid-template-areas:"burger brand" "actions actions";
-    gap:12px;
-    align-items:center;
-    margin-bottom:16px;
-  }
+  .top{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"burger brand" "actions actions";gap:12px;align-items:center;margin-bottom:16px}
   .hamburger{grid-area:burger;display:flex}
   .brand{grid-area:brand;min-width:0}
   .actions{grid-area:actions}
@@ -148,94 +190,35 @@ td .smallbtn{padding:8px 12px;font-size:13px;min-height:36px}
   .top #logoutBtn{display:none}
   .brand h1{font-size:20px}
 
-  /* Menú: overlay fullscreen vertical */
-  .tabs{
-    display:none;
-    position:fixed;
-    inset:0;
-    flex-direction:column;
-    justify-content:center;
-    align-items:stretch;
-    padding:80px 24px 40px;
-    gap:12px;
-    background:rgba(5,5,5,.95);
-    backdrop-filter:blur(8px);
-    -webkit-backdrop-filter:blur(8px);
-    z-index:100;
-    overflow-y:auto;
-    flex-wrap:nowrap;
-    scroll-snap-type:none;
-    margin:0;
-  }
+  .tabs{display:none;position:fixed;inset:0;flex-direction:column;justify-content:center;align-items:stretch;padding:80px 24px 40px;gap:12px;background:rgba(5,5,5,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:100;overflow-y:auto;flex-wrap:nowrap;scroll-snap-type:none;margin:0}
   .tabs.open{display:flex}
-  .tabs .tab{
-    width:100%;
-    text-align:left;
-    padding:16px 20px;
-    font-size:16px;
-    border-radius:12px;
-    background:#1a1a1a;
-    border-color:#333;
-    min-height:54px;
-    flex:0 0 auto;
-    white-space:normal;
-    scroll-snap-align:auto;
-  }
-  .tabs .tab.active{
-    background:var(--green);
-    color:#06150d;
-    border-color:var(--green);
-    font-weight:700;
-  }
-  .menu-close{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position:absolute;
-    top:max(20px,env(safe-area-inset-top));
-    right:20px;
-    width:44px;height:44px;
-    padding:0;
-    font-size:20px;
-    border-radius:50%;
-    background:var(--panel);
-    border:1px solid var(--line);
-    color:var(--text);
-    z-index:1;
-  }
-  .menu-logout{
-    display:block;
-    width:100%;
-    text-align:left;
-    padding:16px 20px;
-    font-size:16px;
-    min-height:54px;
-    border-radius:12px;
-    background:#2a1212;
-    border:1px solid #5a2a2a;
-    color:var(--red);
-    font-weight:600;
-    margin-top:12px;
-  }
+  .tabs .tab{width:100%;text-align:left;padding:16px 20px;font-size:16px;border-radius:12px;background:#1a1a1a;border-color:#333;min-height:54px;flex:0 0 auto;white-space:normal;scroll-snap-align:auto}
+  .tabs .tab.active{background:var(--green);color:#06150d;border-color:var(--green);font-weight:700}
+  .menu-close{display:flex;align-items:center;justify-content:center;position:absolute;top:max(20px,env(safe-area-inset-top));right:20px;width:44px;height:44px;padding:0;font-size:20px;border-radius:50%;background:var(--panel);border:1px solid var(--line);color:var(--text);z-index:1}
+  .menu-logout{display:block;width:100%;text-align:left;padding:16px 20px;font-size:16px;min-height:54px;border-radius:12px;background:#2a1212;border:1px solid #5a2a2a;color:var(--red);font-weight:600;margin-top:12px}
 
-  /* Mostrar sub con la sección actual en la cabecera */
   .desktop-only{display:none}
   .mobile-only{display:block}
 
-  /* Cabecera del día apilada */
-  .dayhead{flex-direction:column;align-items:stretch;gap:10px;padding-bottom:12px}
-  .date-input{max-width:100%;width:100%;min-width:0}
+  /* Cabecera del día - constraints totales */
+  .dayhead{flex-direction:column;align-items:stretch;gap:10px;padding-bottom:12px;width:100%;max-width:100%;min-width:0;box-sizing:border-box;overflow:hidden}
+  .dayhead>*{width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box}
+  .date-input,.dayhead #dayDate{width:100%!important;max-width:100%!important;min-width:0!important;display:block;box-sizing:border-box}
+
+  .field{width:100%;max-width:100%;min-width:0;box-sizing:border-box}
+  .field input,.field select{width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box}
+  .formgrid{width:100%;max-width:100%;min-width:0;box-sizing:border-box;grid-template-columns:1fr 1fr;gap:8px}
+  .formgrid>*{width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box}
+
   .search-input{max-width:100%;width:100%}
   .panelhead{flex-wrap:wrap}
   .daytotal{gap:10px}
-  .formgrid{grid-template-columns:1fr 1fr;gap:8px}
   .person-edit{grid-template-columns:1fr auto}
   .person-edit .row-actions button{min-height:44px;padding:10px 14px;font-size:14px}
   #newPersonForm{flex-direction:column;align-items:stretch}
-  #newPersonForm > *{width:100%}
+  #newPersonForm>*{width:100%}
   #newPersonForm label.checkrow{justify-content:flex-start}
 
-  /* Tablas → tarjetas */
   .scroll{overflow:visible}
   table{min-width:0;border-collapse:separate;border-spacing:0}
   thead{display:none}
@@ -244,16 +227,14 @@ td .smallbtn{padding:8px 12px;font-size:13px;min-height:36px}
   tbody tr:last-child{margin-bottom:0}
   tbody td{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:6px 0;border:0;font-size:14px;min-width:0}
   tbody td[data-label]::before{content:attr(data-label);color:var(--muted);font-size:12px;flex-shrink:0}
-  tbody td[data-label] > span, tbody td[data-label] > *{text-align:right;min-width:0;overflow-wrap:anywhere}
+  tbody td[data-label]>span,tbody td[data-label]>*{text-align:right;min-width:0;overflow-wrap:anywhere}
   tbody td.actions{justify-content:flex-end;padding-top:10px;margin-top:6px;border-top:1px solid var(--line);gap:8px}
   tbody td.actions::before{content:none}
   tbody td.actions button{flex:1;min-height:40px;padding:9px 12px;font-size:13px}
   tbody td.empty{justify-content:center;padding:20px 0;text-align:center}
   tbody td.empty::before{content:none}
-  .panelhead > .search-input{margin-top:4px}
 }
 
-/* ---------- ≤ 420px ---------- */
 @media(max-width:420px){
   .formgrid{grid-template-columns:1fr}
   .panel{padding:12px}
@@ -277,7 +258,6 @@ td .smallbtn{padding:8px 12px;font-size:13px;min-height:36px}
 <body>
 <div class="app">
 
-  <!-- LOGIN -->
   <div id="authScreen" class="hidden">
     <div class="panel auth-card">
       <div class="brand">
@@ -294,7 +274,6 @@ td .smallbtn{padding:8px 12px;font-size:13px;min-height:36px}
     </div>
   </div>
 
-  <!-- ONBOARDING -->
   <div id="onboardScreen" class="hidden">
     <div class="panel auth-card">
       <div class="brand">
@@ -315,7 +294,6 @@ td .smallbtn{padding:8px 12px;font-size:13px;min-height:36px}
     </div>
   </div>
 
-  <!-- APP PRINCIPAL -->
   <div id="mainApp" class="hidden">
     <header class="top">
       <button class="hamburger" id="menuToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="tabsMenu">
@@ -489,54 +467,25 @@ function toast(s) {
   toast._t = setTimeout(() => t.classList.remove('show'), 2600);
 }
 
-/* ---------- Menú móvil ---------- */
-function openMenu() {
-  $('tabsMenu').classList.add('open');
-  $('menuToggle').setAttribute('aria-expanded', 'true');
-}
-function closeMenu() {
-  $('tabsMenu').classList.remove('open');
-  $('menuToggle').setAttribute('aria-expanded', 'false');
-}
+function openMenu() { $('tabsMenu').classList.add('open'); $('menuToggle').setAttribute('aria-expanded', 'true'); }
+function closeMenu() { $('tabsMenu').classList.remove('open'); $('menuToggle').setAttribute('aria-expanded', 'false'); }
 $('menuToggle').addEventListener('click', () => {
-  const isOpen = $('tabsMenu').classList.contains('open');
-  if (isOpen) closeMenu(); else openMenu();
+  $('tabsMenu').classList.contains('open') ? closeMenu() : openMenu();
 });
 $('menuClose').addEventListener('click', closeMenu);
-$('tabsMenu').addEventListener('click', e => {
-  if (e.target === $('tabsMenu')) closeMenu();
-});
+$('tabsMenu').addEventListener('click', e => { if (e.target === $('tabsMenu')) closeMenu(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 
-/* ---------- Vistas ---------- */
-function showAuth() {
-  $('authScreen').classList.remove('hidden');
-  $('onboardScreen').classList.add('hidden');
-  $('mainApp').classList.add('hidden');
-}
-function showOnboarding() {
-  $('authScreen').classList.add('hidden');
-  $('onboardScreen').classList.remove('hidden');
-  $('mainApp').classList.add('hidden');
-  setTimeout(() => $('onboardNames').focus(), 80);
-}
-function showMain() {
-  $('authScreen').classList.add('hidden');
-  $('onboardScreen').classList.add('hidden');
-  $('mainApp').classList.remove('hidden');
-}
+function showAuth() { $('authScreen').classList.remove('hidden'); $('onboardScreen').classList.add('hidden'); $('mainApp').classList.add('hidden'); }
+function showOnboarding() { $('authScreen').classList.add('hidden'); $('onboardScreen').classList.remove('hidden'); $('mainApp').classList.add('hidden'); setTimeout(() => $('onboardNames').focus(), 80); }
+function showMain() { $('authScreen').classList.add('hidden'); $('onboardScreen').classList.add('hidden'); $('mainApp').classList.remove('hidden'); }
 
-/* ---------- Carga ---------- */
 async function loadAll() {
   let r = await sb.from('participants').select('*').eq('archived', false).order('created_at');
   if (r.error) throw r.error;
   people = r.data || [];
   names = people.map(p => p.name);
-
-  if (people.length === 0) {
-    state = { price: 2.5, payers: {}, trips: {}, payments: [] };
-    return false;
-  }
+  if (people.length === 0) { state = { price: 2.5, payers: {}, trips: {}, payments: [] }; return false; }
 
   let price = 2.5;
   try {
@@ -570,7 +519,6 @@ async function loadAll() {
 
   const payers = {};
   people.forEach(p => { payers[p.name] = !!p.pays; });
-
   state = { price, payers, trips, payments };
   $('payDate').value = isoToday();
   renderAll();
@@ -579,11 +527,9 @@ async function loadAll() {
 
 async function refresh() {
   const ok = await loadAll();
-  if (ok) showMain();
-  else showOnboarding();
+  ok ? showMain() : showOnboarding();
 }
 
-/* ---------- Modelo ---------- */
 function getTrip(date) {
   const base = {};
   names.forEach(n => base[n] = { ida: false, vuelta: false });
@@ -594,30 +540,26 @@ function tripCost(date, person) {
   return state.payers[person] ? (Number(!!t.ida) + Number(!!t.vuelta)) * state.price : 0;
 }
 function personStats(person) {
-  let owed = 0, trips = 0, days = 0;
+  let owed = 0, trips = 0;
   for (const [, record] of Object.entries(state.trips)) {
     const t = record[person] || {};
     const n = Number(!!t.ida) + Number(!!t.vuelta);
-    if (n) { days++; trips += n; owed += state.payers[person] ? n * state.price : 0; }
+    if (n) { trips += n; owed += state.payers[person] ? n * state.price : 0; }
   }
   const paid = state.payments.filter(p => p.person === person).reduce((s, p) => s + Number(p.amount), 0);
-  return { owed, paid, balance: owed - paid, trips, days };
+  return { owed, paid, balance: owed - paid, trips };
 }
-function dayCost(date) {
-  return names.reduce((s, n) => s + tripCost(date, n), 0);
-}
+function dayCost(date) { return names.reduce((s, n) => s + tripCost(date, n), 0); }
 
-/* ---------- Render ---------- */
 function renderDay() {
   $('dayDate').value = selectedDate;
   const trip = getTrip(selectedDate);
-  const priceLabel = money(state.price) + ' por trayecto';
   $('daySub').textContent = `Marca quién fue y quién volvió. Cada trayecto pagado cuesta ${money(state.price)}.`;
   $('dayPeople').innerHTML = names.length
     ? names.map(n => {
         const pay = !!state.payers[n];
         const cost = tripCost(selectedDate, n);
-        const hint = pay ? ` · ${priceLabel}` : ' · No paga';
+        const hint = pay ? ` · ${money(state.price)} por trayecto` : ' · No paga';
         return `<div class="person">
           <div class="personhead"><span class="personname">${escapeHtml(n)}${hint}</span><span class="price">${money(cost)}</span></div>
           <label class="checkrow"><input type="checkbox" data-person="${escapeHtml(n)}" data-way="ida" ${trip[n]?.ida ? 'checked' : ''}> Ida a la universidad</label>
@@ -634,25 +576,15 @@ function renderStats() {
   const payers = stats.filter(s => state.payers[s.name]);
   const showA = payers[0] || stats[0];
   const showB = payers[1] || stats[1];
-
   function fill(idx, s) {
-    if (!s) {
-      $('statLabel' + idx).textContent = '—';
-      $('statValue' + idx).textContent = money(0);
-      $('statDetail' + idx).textContent = '';
-      return;
-    }
+    if (!s) { $('statLabel' + idx).textContent = '—'; $('statValue' + idx).textContent = money(0); $('statDetail' + idx).textContent = ''; return; }
     $('statLabel' + idx).textContent = s.name + ' te debe';
     $('statValue' + idx).textContent = money(s.balance);
     $('statDetail' + idx).textContent = `${s.trips} trayectos · Pagado ${money(s.paid)}`;
   }
-  fill(1, showA);
-  fill(2, showB);
-
-  const total = payers.reduce((s, x) => s + x.balance, 0);
-  $('totalBalance').textContent = money(total);
+  fill(1, showA); fill(2, showB);
+  $('totalBalance').textContent = money(payers.reduce((s, x) => s + x.balance, 0));
   $('tripCount').textContent = `${Object.keys(state.trips).length} días registrados`;
-
   $('personSummary').innerHTML = stats.map(s => `
     <div class="person">
       <div class="personhead"><span class="personname">${escapeHtml(s.name)}</span><span class="price">${money(s.balance)}</span></div>
@@ -722,10 +654,7 @@ function renderSettings() {
 }
 
 function renderPeopleList() {
-  if (!people.length) {
-    $('peopleList').innerHTML = '<div class="empty">Sin pasajeros. Añade uno abajo.</div>';
-    return;
-  }
+  if (!people.length) { $('peopleList').innerHTML = '<div class="empty">Sin pasajeros. Añade uno abajo.</div>'; return; }
   $('peopleList').innerHTML = people.map(p => `
     <div class="person-edit">
       <input data-person-name="${p.id}" value="${escapeHtml(p.name)}" placeholder="Nombre" autocapitalize="words">
@@ -739,30 +668,21 @@ function renderPeopleList() {
 }
 
 function renderAll() {
-  renderDay();
-  renderStats();
-  renderCalendar();
-  renderHistory();
-  renderPayments();
-  renderSettings();
+  renderDay(); renderStats(); renderCalendar(); renderHistory(); renderPayments(); renderSettings();
 }
 
-/* ---------- Mutaciones ---------- */
 async function saveTrip(date, person, way, checked) {
   const p = people.find(x => x.name === person);
   if (!p) return;
-
   if (!state.trips[date]) state.trips[date] = {};
   if (!state.trips[date][person]) state.trips[date][person] = { ida: false, vuelta: false };
   state.trips[date][person][way] = checked;
   renderDay(); renderStats(); renderCalendar(); renderHistory();
-
   const trip = state.trips[date][person];
   let direction = null;
   if (trip.ida && trip.vuelta) direction = 'ida_vuelta';
   else if (trip.ida) direction = 'ida';
   else if (trip.vuelta) direction = 'vuelta';
-
   try {
     if (!direction) {
       const r = await sb.from('trip_entries').delete().eq('participant_id', p.id).eq('trip_date', date);
@@ -776,10 +696,7 @@ async function saveTrip(date, person, way, checked) {
       );
       if (r.error) throw r.error;
     }
-  } catch (e) {
-    toast('Error al guardar: ' + e.message);
-    refresh().catch(() => {});
-  }
+  } catch (e) { toast('Error al guardar: ' + e.message); refresh().catch(() => {}); }
 }
 
 async function clearDay(date) {
@@ -795,9 +712,7 @@ async function addPayment(person, date, amount, note) {
   const p = people.find(x => x.name === person);
   if (!p) return;
   try {
-    const r = await sb.from('payments').insert({
-      participant_id: p.id, payment_date: date, amount, note: note || ''
-    }).select();
+    const r = await sb.from('payments').insert({ participant_id: p.id, payment_date: date, amount, note: note || '' }).select();
     if (r.error) throw r.error;
     const np = r.data[0];
     state.payments.push({ id: np.id, person, date: np.payment_date, amount: Number(np.amount), note: np.note || '' });
@@ -814,34 +729,20 @@ async function deletePayment(id) {
   } catch (e) { toast('Error: ' + e.message); }
 }
 
-/* ---------- Onboarding ---------- */
 $('onboardSave').addEventListener('click', async () => {
-  const raw = $('onboardNames').value;
+  const parsed = $('onboardNames').value.split(',').map(s => s.trim()).filter(Boolean);
   const price = Number($('onboardPrice').value) || 2.5;
-  const parsed = raw.split(',').map(s => s.trim()).filter(Boolean);
-
-  if (parsed.length === 0) {
-    $('onboardMsg').textContent = 'Introduce al menos un nombre.';
-    return;
-  }
-  if (new Set(parsed).size !== parsed.length) {
-    $('onboardMsg').textContent = 'Los nombres deben ser distintos.';
-    return;
-  }
-
+  if (parsed.length === 0) { $('onboardMsg').textContent = 'Introduce al menos un nombre.'; return; }
+  if (new Set(parsed).size !== parsed.length) { $('onboardMsg').textContent = 'Los nombres deben ser distintos.'; return; }
   try {
-    const rows = parsed.map(n => ({ name: n, pays: true, fare_per_trip: price }));
-    let r = await sb.from('participants').insert(rows);
+    let r = await sb.from('participants').insert(parsed.map(n => ({ name: n, pays: true, fare_per_trip: price })));
     if (r.error) throw r.error;
     r = await sb.from('settings').upsert({ user_id: user.id, price }, { onConflict: 'user_id' });
     if (r.error) throw r.error;
     await refresh();
-  } catch (e) {
-    $('onboardMsg').textContent = 'Error: ' + e.message;
-  }
+  } catch (e) { $('onboardMsg').textContent = 'Error: ' + e.message; }
 });
 
-/* ---------- Ajustes ---------- */
 $('savePrice').addEventListener('click', async () => {
   const price = Math.max(0, Number($('price').value) || 0);
   try {
@@ -859,7 +760,6 @@ $('savePrice').addEventListener('click', async () => {
 $('peopleList').addEventListener('click', async e => {
   const save = e.target.closest('[data-person-save]');
   const del  = e.target.closest('[data-person-delete]');
-
   if (save) {
     const id = save.dataset.personSave;
     const name = document.querySelector(`[data-person-name="${id}"]`).value.trim();
@@ -872,7 +772,6 @@ $('peopleList').addEventListener('click', async e => {
       toast('Pasajero actualizado');
     } catch (err) { toast('Error: ' + err.message); }
   }
-
   if (del) {
     const id = del.dataset.personDelete;
     const p = people.find(x => x.id === id);
@@ -893,9 +792,7 @@ $('newPersonForm').addEventListener('submit', async e => {
   const pays = $('newPersonPays').checked;
   if (!name) return;
   try {
-    const r = await sb.from('participants').insert({
-      name, pays, fare_per_trip: state.price
-    });
+    const r = await sb.from('participants').insert({ name, pays, fare_per_trip: state.price });
     if (r.error) throw r.error;
     $('newPersonName').value = '';
     await refresh();
@@ -915,7 +812,6 @@ $('clearTrips').addEventListener('click', async () => {
   } catch (e) { toast('Error: ' + e.message); }
 });
 
-/* ---------- Navegación ---------- */
 function showTab(tab) {
   document.querySelectorAll('.tab').forEach(b => {
     const isActive = b.dataset.tab === tab;
@@ -990,22 +886,17 @@ $('paymentRows').addEventListener('click', e => {
   if (b && confirm('¿Eliminar este pago?')) deletePayment(b.dataset.paydelete);
 });
 
-/* ---------- Auth ---------- */
 $('loginBtn').addEventListener('click', async () => {
   if (!sb) return;
   $('authMsg').textContent = '';
-  const { error } = await sb.auth.signInWithPassword({
-    email: $('email').value, password: $('password').value
-  });
+  const { error } = await sb.auth.signInWithPassword({ email: $('email').value, password: $('password').value });
   if (error) $('authMsg').textContent = error.message;
 });
 
 $('signupBtn').addEventListener('click', async () => {
   if (!sb) return;
   $('authMsg').textContent = '';
-  const { error } = await sb.auth.signUp({
-    email: $('email').value, password: $('password').value
-  });
+  const { error } = await sb.auth.signUp({ email: $('email').value, password: $('password').value });
   $('authMsg').textContent = error
     ? error.message
     : 'Cuenta creada. Si Supabase pide confirmación, revisa tu correo; si no, ya puedes iniciar sesión.';
@@ -1014,10 +905,8 @@ $('signupBtn').addEventListener('click', async () => {
 $('logoutBtn').addEventListener('click', () => sb.auth.signOut());
 $('logoutBtnMenu').addEventListener('click', () => { closeMenu(); sb.auth.signOut(); });
 
-/* ---------- Init ---------- */
 async function init() {
   sb = window.supabase.createClient(SUPABASE_URL, KEY);
-
   const { data: { session } } = await sb.auth.getSession();
   if (session) {
     user = session.user;
@@ -1025,7 +914,6 @@ async function init() {
   } else {
     showAuth();
   }
-
   sb.auth.onAuthStateChange((_e, s) => {
     if (s) {
       user = s.user;
