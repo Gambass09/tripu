@@ -7,7 +7,6 @@
 <title>TripU</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23080808'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='system-ui,-apple-system,sans-serif' font-weight='800' font-size='40' fill='%2335d98b'%3ET%3C/text%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='38' fill='%23080808'/%3E%3Ctext x='90' y='128' text-anchor='middle' font-family='system-ui,-apple-system,sans-serif' font-weight='800' font-size='110' fill='%2335d98b'%3ET%3C/text%3E%3C/svg%3E">
-<link rel="mask-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='system-ui,-apple-system,sans-serif' font-weight='800' font-size='40' fill='%23080808'%3ET%3C/text%3E%3C/svg%3E" color="#35d98b">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{color-scheme:dark;--bg:#080808;--panel:#0d0d0d;--line:#252525;--muted:#a5a5a5;--text:#f2f2f2;--green:#35d98b;--red:#ff7777;--radius:18px}
@@ -19,8 +18,10 @@ button{cursor:pointer;border:1px solid var(--line);background:#151515;color:var(
 button:hover{border-color:#555}
 button:active{background:#1d1d1d}
 button:disabled{opacity:.5;cursor:not-allowed}
-input,select{background:#111;color:var(--text);border:1px solid #333;border-radius:9px;padding:11px 12px;min-width:0;width:100%;font-size:16px;min-height:44px}
-input[type="date"]{min-width:0;max-width:100%}
+input,select{background:#111;color:var(--text);border:1px solid #333;border-radius:9px;padding:11px 12px;min-width:0;max-width:100%;width:100%;font-size:16px;min-height:44px}
+input[type="date"]{min-width:0;max-width:100%;width:100%}
+input[type="date"]::-webkit-date-and-time-value{min-width:0;text-align:left}
+input[type="date"]::-webkit-calendar-picker-indicator{padding:0;margin-left:4px}
 input[type="checkbox"]{min-height:auto;padding:0;width:18px;height:18px;accent-color:var(--green)}
 input:focus,select:focus,button:focus-visible{outline:2px solid var(--green);outline-offset:2px}
 
@@ -32,13 +33,23 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--green);out
 .primary{background:var(--green);color:#06150d;border-color:var(--green);font-weight:700}
 .primary:active{background:#2fc27c}
 
+.hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;padding:0;background:transparent;border:1px solid var(--line);border-radius:10px;flex-shrink:0}
+.hamburger span{display:block;width:20px;height:2px;background:var(--text);border-radius:2px;transition:transform .2s,opacity .2s}
+.hamburger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.hamburger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+.desktop-only{display:block}
+.mobile-only{display:none}
+
 .layout{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:16px}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px;min-width:0}
 .panel h2{font-size:16px;margin:0}
 .panelhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px;flex-wrap:wrap}
 .dayhead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding-bottom:16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
 .dayhead h2{margin-bottom:4px}
-.date-input{width:auto;max-width:160px}
+.dayhead > *{min-width:0;max-width:100%}
+.date-input{width:auto;max-width:160px;min-width:0}
 .search-input{max-width:220px}
 .person{padding:16px 0;border-bottom:1px solid var(--line)}
 .person:last-of-type{border-bottom:0}
@@ -58,10 +69,13 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--green);out
 
 .tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
 .tab.active{border-color:var(--green);color:var(--green)}
+.menu-close,.menu-logout{display:none}
 
-.field{display:grid;gap:5px;margin-bottom:11px;min-width:0}
+.field{display:grid;gap:5px;margin-bottom:11px;min-width:0;max-width:100%}
 .field label{font-size:12px;color:var(--muted)}
+.field input,.field select{min-width:0;max-width:100%}
 .formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.formgrid > *{min-width:0;max-width:100%}
 
 .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
 table{width:100%;border-collapse:collapse;min-width:540px}
@@ -88,7 +102,7 @@ td .smallbtn{padding:8px 12px;font-size:13px;min-height:36px}
 .danger{color:var(--red)}
 .inline{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 
-.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#eee;color:#111;padding:10px 14px;border-radius:10px;display:none;z-index:50;max-width:calc(100vw - 24px);text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.4)}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#eee;color:#111;padding:10px 14px;border-radius:10px;display:none;z-index:200;max-width:calc(100vw - 24px);text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.4)}
 .toast.show{display:block;animation:slideIn .2s ease-out}
 @keyframes slideIn{from{opacity:0;transform:translate(-50%,10px)}to{opacity:1;transform:translate(-50%,0)}}
 
@@ -104,32 +118,113 @@ td .smallbtn{padding:8px 12px;font-size:13px;min-height:36px}
 .person-edit .row-actions{grid-column:1/-1;display:flex;gap:8px;margin-top:4px}
 .person-edit .row-actions button{flex:1;min-height:44px}
 
-/* ---------- MOBILE ≤ 780px ---------- */
+/* ---------- ≤ 780px ---------- */
 @media(max-width:780px){
   .layout{grid-template-columns:1fr}
   .app{padding:16px 12px 40px;padding:16px max(12px,env(safe-area-inset-right)) calc(40px + env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left))}
   .panel{padding:14px;border-radius:16px}
-  .cards{grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
-  .cards .stat:nth-child(3){grid-column:1/-1}
-  .stat{padding:12px}
-  .statvalue{font-size:18px}
-  .statlabel{font-size:11px}
+  /* Ocultar tarjetas de resumen “X te debe / Y te debe / Total” */
+  .cards{display:none}
   .calday{min-height:62px;padding:5px}
   .calday .names{display:none}
   .auth-card{margin:20px auto}
 }
 
-/* ---------- MOBILE ≤ 640px ---------- */
+/* ---------- ≤ 640px ---------- */
 @media(max-width:640px){
-  .top{flex-direction:column;align-items:stretch;gap:14px;margin-bottom:16px}
-  .top .actions{width:100%}
-  .top .actions button{flex:1}
+  /* Cabecera: [☰] TripU  +  botones debajo */
+  .top{
+    display:grid;
+    grid-template-columns:auto 1fr;
+    grid-template-areas:"burger brand" "actions actions";
+    gap:12px;
+    align-items:center;
+    margin-bottom:16px;
+  }
+  .hamburger{grid-area:burger;display:flex}
+  .brand{grid-area:brand;min-width:0}
+  .actions{grid-area:actions}
+  .top .actions button{width:100%}
+  .top #logoutBtn{display:none}
   .brand h1{font-size:20px}
-  .tabs{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;padding-bottom:8px;margin-left:-12px;margin-right:-12px;padding-left:12px;padding-right:12px;margin-bottom:12px}
-  .tabs::-webkit-scrollbar{display:none}
-  .tab{scroll-snap-align:start;flex:0 0 auto;white-space:nowrap}
+
+  /* Menú: overlay fullscreen vertical */
+  .tabs{
+    display:none;
+    position:fixed;
+    inset:0;
+    flex-direction:column;
+    justify-content:center;
+    align-items:stretch;
+    padding:80px 24px 40px;
+    gap:12px;
+    background:rgba(5,5,5,.95);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    z-index:100;
+    overflow-y:auto;
+    flex-wrap:nowrap;
+    scroll-snap-type:none;
+    margin:0;
+  }
+  .tabs.open{display:flex}
+  .tabs .tab{
+    width:100%;
+    text-align:left;
+    padding:16px 20px;
+    font-size:16px;
+    border-radius:12px;
+    background:#1a1a1a;
+    border-color:#333;
+    min-height:54px;
+    flex:0 0 auto;
+    white-space:normal;
+    scroll-snap-align:auto;
+  }
+  .tabs .tab.active{
+    background:var(--green);
+    color:#06150d;
+    border-color:var(--green);
+    font-weight:700;
+  }
+  .menu-close{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:absolute;
+    top:max(20px,env(safe-area-inset-top));
+    right:20px;
+    width:44px;height:44px;
+    padding:0;
+    font-size:20px;
+    border-radius:50%;
+    background:var(--panel);
+    border:1px solid var(--line);
+    color:var(--text);
+    z-index:1;
+  }
+  .menu-logout{
+    display:block;
+    width:100%;
+    text-align:left;
+    padding:16px 20px;
+    font-size:16px;
+    min-height:54px;
+    border-radius:12px;
+    background:#2a1212;
+    border:1px solid #5a2a2a;
+    color:var(--red);
+    font-weight:600;
+    margin-top:12px;
+  }
+
+  /* Mostrar sub con la sección actual en la cabecera */
+  .desktop-only{display:none}
+  .mobile-only{display:block}
+
+  /* Cabecera del día apilada */
   .dayhead{flex-direction:column;align-items:stretch;gap:10px;padding-bottom:12px}
-  .date-input{max-width:100%;width:100%}
+  .date-input{max-width:100%;width:100%;min-width:0}
   .search-input{max-width:100%;width:100%}
   .panelhead{flex-wrap:wrap}
   .daytotal{gap:10px}
@@ -139,6 +234,8 @@ td .smallbtn{padding:8px 12px;font-size:13px;min-height:36px}
   #newPersonForm{flex-direction:column;align-items:stretch}
   #newPersonForm > *{width:100%}
   #newPersonForm label.checkrow{justify-content:flex-start}
+
+  /* Tablas → tarjetas */
   .scroll{overflow:visible}
   table{min-width:0;border-collapse:separate;border-spacing:0}
   thead{display:none}
@@ -156,11 +253,9 @@ td .smallbtn{padding:8px 12px;font-size:13px;min-height:36px}
   .panelhead > .search-input{margin-top:4px}
 }
 
-/* ---------- VERY SMALL ≤ 420px ---------- */
+/* ---------- ≤ 420px ---------- */
 @media(max-width:420px){
   .formgrid{grid-template-columns:1fr}
-  .cards{grid-template-columns:1fr;gap:8px}
-  .cards .stat:nth-child(3){grid-column:auto}
   .panel{padding:12px}
   .calendar{gap:3px}
   .calday{min-height:54px;padding:4px}
@@ -171,6 +266,7 @@ td .smallbtn{padding:8px 12px;font-size:13px;min-height:36px}
   .toast.show{animation:slideUp .2s ease-out}
   @keyframes slideUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
   .top .actions button{padding:10px 8px;font-size:14px}
+  .tabs{padding:72px 16px 32px}
 }
 
 @media(prefers-reduced-motion:reduce){
@@ -222,7 +318,14 @@ td .smallbtn{padding:8px 12px;font-size:13px;min-height:36px}
   <!-- APP PRINCIPAL -->
   <div id="mainApp" class="hidden">
     <header class="top">
-      <div class="brand"><h1>TripU</h1><div class="sub">Control de trayectos, pagos y deudas</div></div>
+      <button class="hamburger" id="menuToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="tabsMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="brand">
+        <h1>TripU</h1>
+        <div class="sub desktop-only">Control de trayectos, pagos y deudas</div>
+        <div class="sub mobile-only" id="currentTabLabel">Registro diario</div>
+      </div>
       <div class="actions">
         <button class="primary" id="todayBtn">＋ Registrar viaje</button>
         <button id="logoutBtn">Salir</button>
@@ -235,13 +338,15 @@ td .smallbtn{padding:8px 12px;font-size:13px;min-height:36px}
       <div class="stat"><div class="statlabel">Total pendiente</div><div class="statvalue" id="totalBalance">0,00 €</div><div class="muted" id="tripCount">0 días registrados</div></div>
     </section>
 
-    <div class="tabs">
+    <nav class="tabs" id="tabsMenu">
+      <button class="menu-close" id="menuClose" type="button" aria-label="Cerrar menú">✕</button>
       <button class="tab active" data-tab="day">Registro diario</button>
       <button class="tab" data-tab="calendar">Calendario</button>
       <button class="tab" data-tab="history">Historial</button>
       <button class="tab" data-tab="payments">Pagos</button>
       <button class="tab" data-tab="settings">Ajustes</button>
-    </div>
+      <button class="menu-logout" id="logoutBtnMenu" type="button">Salir</button>
+    </nav>
 
     <div class="layout">
       <main>
@@ -383,6 +488,25 @@ function toast(s) {
   clearTimeout(toast._t);
   toast._t = setTimeout(() => t.classList.remove('show'), 2600);
 }
+
+/* ---------- Menú móvil ---------- */
+function openMenu() {
+  $('tabsMenu').classList.add('open');
+  $('menuToggle').setAttribute('aria-expanded', 'true');
+}
+function closeMenu() {
+  $('tabsMenu').classList.remove('open');
+  $('menuToggle').setAttribute('aria-expanded', 'false');
+}
+$('menuToggle').addEventListener('click', () => {
+  const isOpen = $('tabsMenu').classList.contains('open');
+  if (isOpen) closeMenu(); else openMenu();
+});
+$('menuClose').addEventListener('click', closeMenu);
+$('tabsMenu').addEventListener('click', e => {
+  if (e.target === $('tabsMenu')) closeMenu();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 
 /* ---------- Vistas ---------- */
 function showAuth() {
@@ -793,8 +917,16 @@ $('clearTrips').addEventListener('click', async () => {
 
 /* ---------- Navegación ---------- */
 function showTab(tab) {
-  document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  document.querySelectorAll('.tab').forEach(b => {
+    const isActive = b.dataset.tab === tab;
+    b.classList.toggle('active', isActive);
+    if (isActive) {
+      const label = $('currentTabLabel');
+      if (label) label.textContent = b.textContent.trim();
+    }
+  });
   document.querySelectorAll('[id^="tab-"]').forEach(s => s.classList.toggle('hidden', s.id !== 'tab-' + tab));
+  closeMenu();
   if (window.innerWidth <= 780) window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => showTab(b.dataset.tab)));
@@ -880,6 +1012,7 @@ $('signupBtn').addEventListener('click', async () => {
 });
 
 $('logoutBtn').addEventListener('click', () => sb.auth.signOut());
+$('logoutBtnMenu').addEventListener('click', () => { closeMenu(); sb.auth.signOut(); });
 
 /* ---------- Init ---------- */
 async function init() {
