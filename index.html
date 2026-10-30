@@ -8,15 +8,18 @@
 :root{color-scheme:dark;--bg:#080808;--panel:#0d0d0d;--line:#252525;--muted:#a5a5a5;--text:#f2f2f2;--green:#35d98b;--red:#ff7777;--radius:18px}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
 button,input,select{font:inherit}button{cursor:pointer;border:1px solid var(--line);background:#151515;color:var(--text);padding:9px 12px;border-radius:10px}button:hover{border-color:#555}button:disabled{opacity:.5;cursor:not-allowed}input,select{background:#111;color:var(--text);border:1px solid #333;border-radius:9px;padding:9px;min-width:0;width:100%}
-.app{max-width:1100px;margin:auto;padding:24px 16px 48px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:20px}.brand h1{font-size:22px;margin:0 0 3px}.sub,.muted{color:var(--muted);font-size:13px}.actions{display:flex;gap:8px;flex-wrap:wrap}.primary{background:var(--green);color:#06150d;border-color:var(--green);font-weight:700}.layout{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:16px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px;min-width:0}.panel h2{font-size:16px;margin:0}.panelhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}.dayhead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding-bottom:16px;border-bottom:1px solid var(--line)}.dayhead h2{margin-bottom:4px}.person{padding:16px 0;border-bottom:1px solid var(--line)}.person:last-of-type{border-bottom:0}.personhead{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:10px}.personname{font-weight:650}.price{color:var(--green);font-weight:700;white-space:nowrap}.checkrow{display:flex;align-items:center;gap:10px;padding:5px 0;color:#ddd}.checkrow input{width:18px;height:18px;accent-color:var(--green)}.daytotal{display:flex;justify-content:space-between;align-items:center;padding-top:15px;margin-top:4px;border-top:1px solid var(--line)}.bigmoney{font-size:21px;font-weight:750;color:var(--green)}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}.stat{padding:14px;border:1px solid var(--line);border-radius:14px;background:#0c0c0c}.statlabel{font-size:12px;color:var(--muted);margin-bottom:5px}.statvalue{font-size:21px;font-weight:750}.statvalue.green{color:var(--green)}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}.tab.active{border-color:var(--green);color:var(--green)}.field{display:grid;gap:5px;margin-bottom:11px}.field label{font-size:12px;color:var(--muted)}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.scroll{overflow:auto}table{width:100%;border-collapse:collapse;min-width:540px}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);font-size:13px}th{color:var(--muted);font-weight:600}td.money{white-space:nowrap}td .smallbtn{padding:5px 8px;font-size:12px}.monthnav{display:flex;align-items:center;gap:8px}.monthnav strong{min-width:130px;text-align:center}.calendar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}.dow{text-align:center;color:var(--muted);font-size:11px;padding:6px 0}.calday{min-height:78px;border:1px solid var(--line);border-radius:9px;padding:6px;background:#0b0b0b;text-align:left;display:flex;flex-direction:column;gap:4px}.calday.dim{opacity:.35}.calday.selected{border-color:var(--green);box-shadow:inset 0 0 0 1px var(--green)}.calday .num{font-size:12px}.calday .amount{font-size:11px;color:var(--green);font-weight:700}.calday .names{font-size:10px;color:#aaa;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.hidden{display:none!important}.badge{font-size:11px;border:1px solid #343434;padding:3px 7px;border-radius:999px;color:#ccc}.empty{padding:25px 10px;text-align:center;color:var(--muted)}.note{font-size:12px;color:var(--muted);margin-top:10px}.danger{color:var(--red)}.inline{display:flex;gap:8px;align-items:center}.inline input{max-width:110px}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#eee;color:#111;padding:10px 14px;border-radius:10px;display:none;z-index:10;max-width:90%}
-.auth-card{max-width:440px;margin:60px auto}.auth-card .brand{text-align:center;margin-bottom:18px}.auth-card .brand h1{font-size:24px;margin:0 0 6px}.auth-card .brand .sub{display:block;margin:0}.auth-card .actions{margin-top:12px}.auth-card .actions button{flex:1}
+.app{max-width:1100px;margin:auto;padding:24px 16px 48px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:20px}.brand h1{font-size:22px;margin:0 0 3px}.sub,.muted{color:var(--muted);font-size:13px}.actions{display:flex;gap:8px;flex-wrap:wrap}.primary{background:var(--green);color:#06150d;border-color:var(--green);font-weight:700}.layout{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:16px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px;min-width:0}.panel h2{font-size:16px;margin:0}.panelhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}.dayhead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding-bottom:16px;border-bottom:1px solid var(--line)}.dayhead h2{margin-bottom:4px}.person{padding:16px 0;border-bottom:1px solid var(--line)}.person:last-of-type{border-bottom:0}.personhead{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:10px}.personname{font-weight:650}.price{color:var(--green);font-weight:700;white-space:nowrap}.checkrow{display:flex;align-items:center;gap:10px;padding:5px 0;color:#ddd}.checkrow input{width:18px;height:18px;accent-color:var(--green)}.daytotal{display:flex;justify-content:space-between;align-items:center;padding-top:15px;margin-top:4px;border-top:1px solid var(--line)}.bigmoney{font-size:21px;font-weight:750;color:var(--green)}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}.stat{padding:14px;border:1px solid var(--line);border-radius:14px;background:#0c0c0c}.statlabel{font-size:12px;color:var(--muted);margin-bottom:5px}.statvalue{font-size:21px;font-weight:750}.statvalue.green{color:var(--green)}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}.tab.active{border-color:var(--green);color:var(--green)}.field{display:grid;gap:5px;margin-bottom:11px}.field label{font-size:12px;color:var(--muted)}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.scroll{overflow:auto}table{width:100%;border-collapse:collapse;min-width:540px}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);font-size:13px}th{color:var(--muted);font-weight:600}td.money{white-space:nowrap}td .smallbtn{padding:5px 8px;font-size:12px}.monthnav{display:flex;align-items:center;gap:8px}.monthnav strong{min-width:130px;text-align:center}.calendar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}.dow{text-align:center;color:var(--muted);font-size:11px;padding:6px 0}.calday{min-height:78px;border:1px solid var(--line);border-radius:9px;padding:6px;background:#0b0b0b;text-align:left;display:flex;flex-direction:column;gap:4px}.calday.dim{opacity:.35}.calday.selected{border-color:var(--green);box-shadow:inset 0 0 0 1px var(--green)}.calday .num{font-size:12px}.calday .amount{font-size:11px;color:var(--green);font-weight:700}.calday .names{font-size:10px;color:#aaa;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.hidden{display:none!important}.badge{font-size:11px;border:1px solid #343434;padding:3px 7px;border-radius:999px;color:#ccc}.empty{padding:25px 10px;text-align:center;color:var(--muted)}.note{font-size:12px;color:var(--muted);margin-top:10px}.danger{color:var(--red)}.inline{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#eee;color:#111;padding:10px 14px;border-radius:10px;display:none;z-index:10;max-width:90%}
+.auth-card{max-width:460px;margin:60px auto}.auth-card .brand{text-align:center;margin-bottom:18px}.auth-card .brand h1{font-size:24px;margin:0 0 6px}.auth-card .brand .sub{display:block;margin:0}.auth-card .actions{margin-top:12px}.auth-card .actions button{flex:1}
+.person-edit{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.person-edit:last-child{border-bottom:0}
+.person-edit .row-actions{grid-column:1/-1;display:flex;gap:8px;margin-top:4px}
 @media(max-width:780px){.layout{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.statvalue{font-size:19px}.app{padding:16px 11px 32px}.panel{padding:14px}.calday{min-height:62px;padding:4px}.calday .names{display:none}.formgrid{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
 <div class="app">
 
-  <!-- Pantalla de login -->
+  <!-- LOGIN -->
   <div id="authScreen" class="hidden">
     <div class="panel auth-card">
       <div class="brand">
@@ -33,21 +36,40 @@ button,input,select{font:inherit}button{cursor:pointer;border:1px solid var(--li
     </div>
   </div>
 
-  <!-- App principal -->
+  <!-- ONBOARDING -->
+  <div id="onboardScreen" class="hidden">
+    <div class="panel auth-card">
+      <div class="brand">
+        <h1>🚗 Empecemos</h1>
+        <span class="sub">Dime quiénes viajan y cuánto cuesta cada trayecto.</span>
+      </div>
+      <div class="field">
+        <label for="onboardNames">Pasajeros (separados por coma)</label>
+        <input id="onboardNames" placeholder="Ej: Alba, Claudia, Salva">
+      </div>
+      <div class="field">
+        <label for="onboardPrice">Precio por trayecto (€)</label>
+        <input id="onboardPrice" type="number" min="0" step="0.5" value="2.5">
+      </div>
+      <button class="primary" id="onboardSave" style="width:100%">Empezar</button>
+      <div class="note">Podrás cambiar quién paga y añadir más personas luego en Ajustes.</div>
+      <div id="onboardMsg" class="note"></div>
+    </div>
+  </div>
+
+  <!-- APP PRINCIPAL -->
   <div id="mainApp" class="hidden">
     <header class="top">
       <div class="brand"><h1>🚗 Viajes a la uni</h1><div class="sub">Control de trayectos, pagos y deudas · Tus datos se guardan en la nube</div></div>
       <div class="actions">
-        <button id="exportBtn">Exportar CSV</button>
-        <button id="backupBtn">Copia de seguridad</button>
         <button class="primary" id="todayBtn">＋ Registrar viaje</button>
         <button id="logoutBtn">Salir</button>
       </div>
     </header>
 
     <section class="cards">
-      <div class="stat"><div class="statlabel">Alba te debe</div><div class="statvalue green" id="albaBalance">0,00 €</div><div class="muted" id="albaDetail">0 trayectos</div></div>
-      <div class="stat"><div class="statlabel">Claudia te debe</div><div class="statvalue green" id="claudiaBalance">0,00 €</div><div class="muted" id="claudiaDetail">0 trayectos</div></div>
+      <div class="stat"><div class="statlabel" id="statLabel1">—</div><div class="statvalue green" id="statValue1">0,00 €</div><div class="muted" id="statDetail1">0 trayectos</div></div>
+      <div class="stat"><div class="statlabel" id="statLabel2">—</div><div class="statvalue green" id="statValue2">0,00 €</div><div class="muted" id="statDetail2">0 trayectos</div></div>
       <div class="stat"><div class="statlabel">Total pendiente</div><div class="statvalue" id="totalBalance">0,00 €</div><div class="muted" id="tripCount">0 días registrados</div></div>
     </section>
 
@@ -63,7 +85,7 @@ button,input,select{font:inherit}button{cursor:pointer;border:1px solid var(--li
       <main>
         <section class="panel" id="tab-day">
           <div class="dayhead">
-            <div><h2>🚗 Viajes del día</h2><div class="sub">Marca quién fue y quién volvió. Cada trayecto pagado cuesta 2,50 €.</div></div>
+            <div><h2>🚗 Viajes del día</h2><div class="sub" id="daySub">Marca quién fue y quién volvió.</div></div>
             <input id="dayDate" type="date" style="width:auto;max-width:160px">
           </div>
           <div id="dayPeople"></div>
@@ -71,7 +93,7 @@ button,input,select{font:inherit}button{cursor:pointer;border:1px solid var(--li
             <div><div class="muted">Total que te deben este día</div><div class="bigmoney" id="dayTotal">0,00 €</div></div>
             <button id="clearDay">Desmarcar todo</button>
           </div>
-          <div class="note">Salva no genera deuda: os turnáis el coche cada semana. Puedes registrar sus trayectos para tener el calendario completo.</div>
+          <div class="note" id="dayNote"></div>
         </section>
 
         <section class="panel hidden" id="tab-calendar">
@@ -94,7 +116,7 @@ button,input,select{font:inherit}button{cursor:pointer;border:1px solid var(--li
           </div>
           <div class="scroll">
             <table>
-              <thead><tr><th>Fecha</th><th>Alba</th><th>Claudia</th><th>Salva</th><th>Deuda del día</th><th></th></tr></thead>
+              <thead><tr id="historyHead"></tr></thead>
               <tbody id="historyRows"></tbody>
             </table>
           </div>
@@ -105,7 +127,7 @@ button,input,select{font:inherit}button{cursor:pointer;border:1px solid var(--li
           <div class="panelhead"><h2>Registrar un pago</h2></div>
           <form id="paymentForm">
             <div class="formgrid">
-              <div class="field"><label for="payPerson">Persona</label><select id="payPerson"><option>Alba</option><option>Claudia</option></select></div>
+              <div class="field"><label for="payPerson">Persona</label><select id="payPerson"></select></div>
               <div class="field"><label for="payDate">Fecha del pago</label><input id="payDate" type="date" required></div>
             </div>
             <div class="formgrid">
@@ -125,26 +147,30 @@ button,input,select{font:inherit}button{cursor:pointer;border:1px solid var(--li
 
         <section class="panel hidden" id="tab-settings">
           <div class="panelhead"><h2>Ajustes</h2></div>
+
           <div class="formgrid">
             <div class="field"><label for="price">Precio por trayecto (€)</label><input id="price" type="number" min="0" step="0.5"></div>
             <div class="field"><label for="roundPrice">Precio ida y vuelta (€)</label><input id="roundPrice" disabled></div>
           </div>
-          <div class="field">
-            <label>Personas y si pagan</label>
-            <div class="formgrid">
-              <label class="checkrow"><input type="checkbox" id="paysAlba"> Alba paga</label>
-              <label class="checkrow"><input type="checkbox" id="paysClaudia"> Claudia paga</label>
-              <label class="checkrow"><input type="checkbox" id="paysSalva"> Salva paga</label>
-            </div>
-          </div>
-          <button class="primary" id="saveSettings">Guardar ajustes</button>
+          <button class="primary" id="savePrice">Guardar precio</button>
+
           <hr style="border:0;border-top:1px solid var(--line);margin:20px 0">
+
+          <div class="panelhead"><h2>Pasajeros</h2></div>
+          <div id="peopleList"></div>
+
+          <form id="newPersonForm" class="inline" style="margin-top:12px">
+            <input id="newPersonName" placeholder="Nombre del nuevo pasajero" style="flex:1;min-width:150px">
+            <label class="checkrow" style="white-space:nowrap"><input type="checkbox" id="newPersonPays" checked> Paga</label>
+            <button type="submit" class="primary">Añadir</button>
+          </form>
+
+          <hr style="border:0;border-top:1px solid var(--line);margin:20px 0">
+
           <div class="panelhead"><h2>Datos</h2></div>
           <p class="muted">Los registros se guardan en tu cuenta de Supabase, así que están disponibles en cualquier dispositivo donde inicies sesión.</p>
           <div class="actions">
-            <button id="importBtn">Importar copia JSON</button>
-            <input type="file" id="importFile" accept=".json,application/json" class="hidden">
-            <button id="resetBtn" class="danger">Borrar todos los datos</button>
+            <button id="clearTrips" class="danger">Vaciar viajes y pagos</button>
           </div>
         </section>
       </main>
@@ -159,7 +185,7 @@ button,input,select{font:inherit}button{cursor:pointer;border:1px solid var(--li
           • Vuelta = precio por trayecto.<br>
           • Ida + vuelta = precio doble.<br>
           • Los pagos registrados se restan del importe acumulado.<br>
-          • Salva no suma deuda mientras tenga desactivada la opción “paga”.
+          • Quien no tenga activada la opción “paga” no acumula deuda.
         </div>
         <div class="note">Puedes cambiar el precio y quién paga en Ajustes.</div>
       </aside>
@@ -173,12 +199,11 @@ button,input,select{font:inherit}button{cursor:pointer;border:1px solid var(--li
 const SUPABASE_URL = 'https://rkqernwonfoxrrteyisa.supabase.co';
 const KEY = 'sb_publishable_xY53Hvr1T0rpqpHMblohpw_DVZZiAV7';
 const $ = id => document.getElementById(id);
-const names = ['Alba', 'Claudia', 'Salva'];
-const defaults = { price: 2.5, payers: { Alba: true, Claudia: true, Salva: false }, trips: {}, payments: [] };
 
 let sb, user;
-let people = [];                                  // [{id, name, fare_per_trip, pays}]
-let state = structuredClone(defaults);            // {price, payers, trips, payments}
+let people = [];                 // [{id, name, fare_per_trip, pays}]
+let names = [];                  // cache: people.map(p => p.name)
+let state = { price: 2.5, payers: {}, trips: {}, payments: [] };
 let selectedDate = isoToday();
 let calMonth = new Date();
 
@@ -197,44 +222,43 @@ function toast(s) {
   toast._t = setTimeout(() => t.style.display = 'none', 2600);
 }
 
-/* ---------------- Vistas ---------------- */
+/* ---------- Vistas ---------- */
 function showAuth() {
   $('authScreen').classList.remove('hidden');
+  $('onboardScreen').classList.add('hidden');
   $('mainApp').classList.add('hidden');
+}
+function showOnboarding() {
+  $('authScreen').classList.add('hidden');
+  $('onboardScreen').classList.remove('hidden');
+  $('mainApp').classList.add('hidden');
+  setTimeout(() => $('onboardNames').focus(), 50);
 }
 function showMain() {
   $('authScreen').classList.add('hidden');
+  $('onboardScreen').classList.add('hidden');
   $('mainApp').classList.remove('hidden');
 }
 
-/* ---------------- Carga desde Supabase ---------------- */
+/* ---------- Carga desde Supabase (tolerante a tablas faltantes) ---------- */
 async function loadAll() {
-  // Participantes
+  // Participantes (crítico)
   let r = await sb.from('participants').select('*').eq('archived', false).order('created_at');
   if (r.error) throw r.error;
   people = r.data || [];
+  names = people.map(p => p.name);
 
   if (people.length === 0) {
-    const seed = [
-      { name: 'Alba',    pays: true,  fare_per_trip: 2.5 },
-      { name: 'Claudia', pays: true,  fare_per_trip: 2.5 },
-      { name: 'Salva',   pays: false, fare_per_trip: 2.5 }
-    ];
-    r = await sb.from('participants').insert(seed).select();
-    if (r.error) throw r.error;
-    people = r.data;
+    state = { price: 2.5, payers: {}, trips: {}, payments: [] };
+    return false; // necesita onboarding
   }
 
-  // Ajustes (precio global)
-  r = await sb.from('settings').select('*').eq('user_id', user.id).maybeSingle();
-  if (r.error) throw r.error;
+  // Ajustes (precio) — tolerante
   let price = 2.5;
-  if (r.data) {
-    price = Number(r.data.price);
-  } else {
-    const ins = await sb.from('settings').insert({ price: 2.5 });
-    if (ins.error) throw ins.error;
-  }
+  try {
+    const rS = await sb.from('settings').select('*').eq('user_id', user.id).maybeSingle();
+    if (!rS.error && rS.data) price = Number(rS.data.price);
+  } catch (_) {}
 
   // Trayectos
   r = await sb.from('trip_entries').select('*');
@@ -249,35 +273,39 @@ async function loadAll() {
     trips[e.trip_date][p.name].vuelta = e.direction === 'vuelta' || e.direction === 'ida_vuelta';
   });
 
-  // Pagos
-  r = await sb.from('payments').select('*').order('payment_date', { ascending: false });
-  if (r.error) throw r.error;
-  const payments = (r.data || []).map(p => ({
-    id: p.id,
-    person: people.find(x => x.id === p.participant_id)?.name || '?',
-    date: p.payment_date,
-    amount: Number(p.amount),
-    note: p.note || ''
-  }));
+  // Pagos — tolerante
+  let payments = [];
+  try {
+    const rP = await sb.from('payments').select('*').order('payment_date', { ascending: false });
+    if (!rP.error) payments = (rP.data || []).map(p => ({
+      id: p.id,
+      person: people.find(x => x.id === p.participant_id)?.name || '?',
+      date: p.payment_date,
+      amount: Number(p.amount),
+      note: p.note || ''
+    }));
+  } catch (_) {}
 
-  // Estado local
   const payers = {};
   people.forEach(p => { payers[p.name] = !!p.pays; });
 
   state = { price, payers, trips, payments };
   $('payDate').value = isoToday();
   renderAll();
+  return true;
 }
 
-/* ---------------- Modelo ---------------- */
+async function refresh() {
+  const ok = await loadAll();
+  if (ok) showMain();
+  else showOnboarding();
+}
+
+/* ---------- Modelo ---------- */
 function getTrip(date) {
   const base = {};
   names.forEach(n => base[n] = { ida: false, vuelta: false });
   return { ...base, ...(state.trips[date] || {}) };
-}
-function ensureTrip(date) {
-  if (!state.trips[date]) state.trips[date] = {};
-  return state.trips[date];
 }
 function tripCost(date, person) {
   const t = getTrip(date)[person] || {};
@@ -288,11 +316,7 @@ function personStats(person) {
   for (const [date, record] of Object.entries(state.trips)) {
     const t = record[person] || {};
     const n = Number(!!t.ida) + Number(!!t.vuelta);
-    if (n) {
-      days++;
-      trips += n;
-      owed += state.payers[person] ? n * state.price : 0;
-    }
+    if (n) { days++; trips += n; owed += state.payers[person] ? n * state.price : 0; }
   }
   const paid = state.payments.filter(p => p.person === person).reduce((s, p) => s + Number(p.amount), 0);
   return { owed, paid, balance: owed - paid, trips, days };
@@ -301,40 +325,60 @@ function dayCost(date) {
   return names.reduce((s, n) => s + tripCost(date, n), 0);
 }
 
-/* ---------------- Render ---------------- */
+/* ---------- Render ---------- */
 function renderDay() {
   $('dayDate').value = selectedDate;
   const trip = getTrip(selectedDate);
-  $('dayPeople').innerHTML = names.map(n => {
-    const pay = !!state.payers[n];
-    const cost = tripCost(selectedDate, n);
-    const hint = n === 'Salva' && !pay ? ' · Turno del coche' : ` · ${pay ? money(state.price) + ' por trayecto' : 'No paga'}`;
-    return `<div class="person">
-      <div class="personhead"><span class="personname">${n}${hint}</span><span class="price">${money(cost)}</span></div>
-      <label class="checkrow"><input type="checkbox" data-person="${n}" data-way="ida" ${trip[n]?.ida ? 'checked' : ''}> Ida a la universidad</label>
-      <label class="checkrow"><input type="checkbox" data-person="${n}" data-way="vuelta" ${trip[n]?.vuelta ? 'checked' : ''}> Vuelta a casa</label>
-      ${!pay ? '<div class="muted">No genera deuda</div>' : ''}
-    </div>`;
-  }).join('');
+  const priceLabel = money(state.price) + ' por trayecto';
+  $('daySub').textContent = `Marca quién fue y quién volvió. Cada trayecto pagado cuesta ${money(state.price)}.`;
+  $('dayPeople').innerHTML = names.length
+    ? names.map(n => {
+        const pay = !!state.payers[n];
+        const cost = tripCost(selectedDate, n);
+        const hint = pay ? ` · ${priceLabel}` : ' · No paga';
+        return `<div class="person">
+          <div class="personhead"><span class="personname">${escapeHtml(n)}${hint}</span><span class="price">${money(cost)}</span></div>
+          <label class="checkrow"><input type="checkbox" data-person="${escapeHtml(n)}" data-way="ida" ${trip[n]?.ida ? 'checked' : ''}> Ida a la universidad</label>
+          <label class="checkrow"><input type="checkbox" data-person="${escapeHtml(n)}" data-way="vuelta" ${trip[n]?.vuelta ? 'checked' : ''}> Vuelta a casa</label>
+          ${!pay ? '<div class="muted">No genera deuda</div>' : ''}
+        </div>`;
+      }).join('')
+    : '<div class="empty">No hay pasajeros. Añádelos en Ajustes.</div>';
   $('dayTotal').textContent = money(dayCost(selectedDate));
 }
 
 function renderStats() {
-  const a = personStats('Alba'), c = personStats('Claudia');
-  $('albaBalance').textContent = money(a.balance);
-  $('claudiaBalance').textContent = money(c.balance);
-  $('totalBalance').textContent = money(a.balance + c.balance);
-  $('albaDetail').textContent = `${a.trips} trayectos · Pagado ${money(a.paid)}`;
-  $('claudiaDetail').textContent = `${c.trips} trayectos · Pagado ${money(c.paid)}`;
+  const stats = names.map(n => ({ name: n, ...personStats(n) }));
+  // Primeras dos tarjetas: los dos primeros pasajeros que pagan
+  const payers = stats.filter(s => state.payers[s.name]);
+  const showA = payers[0] || stats[0];
+  const showB = payers[1] || stats[1];
+
+  function fill(idx, s) {
+    if (!s) {
+      $('statLabel' + idx).textContent = '—';
+      $('statValue' + idx).textContent = money(0);
+      $('statDetail' + idx).textContent = '';
+      return;
+    }
+    $('statLabel' + idx).textContent = s.name + ' te debe';
+    $('statValue' + idx).textContent = money(s.balance);
+    $('statDetail' + idx).textContent = `${s.trips} trayectos · Pagado ${money(s.paid)}`;
+  }
+  fill(1, showA);
+  fill(2, showB);
+
+  const total = payers.reduce((s, x) => s + x.balance, 0);
+  $('totalBalance').textContent = money(total);
   $('tripCount').textContent = `${Object.keys(state.trips).length} días registrados`;
-  $('personSummary').innerHTML = names.map(n => {
-    const s = personStats(n);
-    return `<div class="person">
-      <div class="personhead"><span class="personname">${n}</span><span class="price">${money(s.balance)}</span></div>
-      <div class="muted">${s.trips} trayectos · Coste ${money(s.owed)} · Pagado ${money(s.paid)}</div>
+
+  $('personSummary').innerHTML = stats.map(s => `
+    <div class="person">
+      <div class="personhead"><span class="personname">${escapeHtml(s.name)}</span><span class="price">${money(s.balance)}</span></div>
+      <div class="muted">${s.trips} trayectos · Coste ${money(s.owed)} · Pagado ${money(s.paid)}${!state.payers[s.name] ? ' · No acumula deuda' : ''}</div>
       ${s.balance < 0 ? '<div class="danger muted">Saldo a favor: has recibido más de lo registrado como deuda.</div>' : ''}
-    </div>`;
-  }).join('');
+    </div>
+  `).join('') || '<div class="empty">Sin pasajeros.</div>';
 }
 
 function renderCalendar() {
@@ -348,15 +392,16 @@ function renderCalendar() {
     const exists = !!state.trips[date];
     const t = getTrip(date);
     const peopleList = names.filter(n => t[n]?.ida || t[n]?.vuelta).join(', ');
-    html += `<button class="calday ${date === selectedDate ? 'selected' : ''}" data-date="${date}">
+    html += `<button type="button" class="calday ${date === selectedDate ? 'selected' : ''}" data-date="${date}">
       <span class="num">${d}</span>
-      ${exists ? `<span class="amount">${money(dayCost(date))}</span><span class="names">${peopleList || 'Registrado'}</span>` : ''}
+      ${exists ? `<span class="amount">${money(dayCost(date))}</span><span class="names">${escapeHtml(peopleList || 'Registrado')}</span>` : ''}
     </button>`;
   }
   $('calendar').innerHTML = html;
 }
 
 function renderHistory() {
+  $('historyHead').innerHTML = '<th>Fecha</th>' + names.map(n => `<th>${escapeHtml(n)}</th>`).join('') + '<th>Deuda del día</th><th></th>';
   const q = $('historySearch').value.toLowerCase();
   const dates = Object.keys(state.trips).sort((a, b) => b.localeCompare(a)).filter(d => {
     const t = state.trips[d];
@@ -372,14 +417,15 @@ function renderHistory() {
         <td class="money">${money(dayCost(d))}</td>
         <td><button class="smallbtn" data-edit="${d}">Editar</button> <button class="smallbtn danger" data-delete="${d}">×</button></td>
       </tr>`).join('')
-    : '<tr><td colspan="6" class="empty">Todavía no hay viajes registrados.</td></tr>';
+    : `<tr><td colspan="${names.length + 3}" class="empty">Todavía no hay viajes registrados.</td></tr>`;
 }
 
 function renderPayments() {
+  $('payPerson').innerHTML = names.map(n => `<option>${escapeHtml(n)}</option>`).join('');
   $('paymentRows').innerHTML = state.payments.length
     ? [...state.payments].sort((a, b) => b.date.localeCompare(a.date)).map(p => `<tr>
         <td>${new Date(p.date + 'T12:00:00').toLocaleDateString('es-ES')}</td>
-        <td>${p.person}</td>
+        <td>${escapeHtml(p.person)}</td>
         <td>${escapeHtml(p.note || '—')}</td>
         <td class="money">${money(p.amount)}</td>
         <td><button class="smallbtn danger" data-paydelete="${p.id}">Eliminar</button></td>
@@ -388,11 +434,26 @@ function renderPayments() {
 }
 
 function renderSettings() {
-  $('roundPrice').value = (state.price * 2).toFixed(2);
   $('price').value = state.price;
-  $('paysAlba').checked = !!state.payers.Alba;
-  $('paysClaudia').checked = !!state.payers.Claudia;
-  $('paysSalva').checked = !!state.payers.Salva;
+  $('roundPrice').value = (state.price * 2).toFixed(2);
+  renderPeopleList();
+}
+
+function renderPeopleList() {
+  if (!people.length) {
+    $('peopleList').innerHTML = '<div class="empty">Sin pasajeros. Añade uno abajo.</div>';
+    return;
+  }
+  $('peopleList').innerHTML = people.map(p => `
+    <div class="person-edit">
+      <input data-person-name="${p.id}" value="${escapeHtml(p.name)}" placeholder="Nombre">
+      <label class="checkrow" style="white-space:nowrap"><input type="checkbox" data-person-pays="${p.id}" ${p.pays ? 'checked' : ''}> Paga</label>
+      <div class="row-actions">
+        <button type="button" class="smallbtn" data-person-save="${p.id}">Guardar</button>
+        <button type="button" class="smallbtn danger" data-person-delete="${p.id}">Eliminar</button>
+      </div>
+    </div>
+  `).join('');
 }
 
 function renderAll() {
@@ -404,13 +465,13 @@ function renderAll() {
   renderSettings();
 }
 
-/* ---------------- Mutaciones (Supabase) ---------------- */
+/* ---------- Mutaciones ---------- */
 async function saveTrip(date, person, way, checked) {
   const p = people.find(x => x.name === person);
-  if (!p) { toast('Persona no encontrada'); return; }
+  if (!p) return;
 
-  // Actualización optimista
-  ensureTrip(date);
+  // Optimista
+  if (!state.trips[date]) state.trips[date] = {};
   if (!state.trips[date][person]) state.trips[date][person] = { ida: false, vuelta: false };
   state.trips[date][person][way] = checked;
   renderDay(); renderStats(); renderCalendar(); renderHistory();
@@ -436,7 +497,7 @@ async function saveTrip(date, person, way, checked) {
     }
   } catch (e) {
     toast('Error al guardar: ' + e.message);
-    try { await loadAll(); } catch (_) {}
+    refresh().catch(() => {});
   }
 }
 
@@ -446,41 +507,23 @@ async function clearDay(date) {
     if (r.error) throw r.error;
     delete state.trips[date];
     renderAll();
-  } catch (e) {
-    toast('Error: ' + e.message);
-  }
+  } catch (e) { toast('Error: ' + e.message); }
 }
 
-async function deleteDay(date) {
-  try {
-    const r = await sb.from('trip_entries').delete().eq('user_id', user.id).eq('trip_date', date);
-    if (r.error) throw r.error;
-    delete state.trips[date];
-    renderAll();
-  } catch (e) {
-    toast('Error: ' + e.message);
-  }
-}
+async function deleteDay(date) { await clearDay(date); }
 
 async function addPayment(person, date, amount, note) {
   const p = people.find(x => x.name === person);
-  if (!p) { toast('Persona no encontrada'); return; }
+  if (!p) return;
   try {
     const r = await sb.from('payments').insert({
-      participant_id: p.id,
-      payment_date: date,
-      amount,
-      note: note || ''
+      participant_id: p.id, payment_date: date, amount, note: note || ''
     }).select();
     if (r.error) throw r.error;
     const np = r.data[0];
-    state.payments.push({
-      id: np.id, person, date: np.payment_date, amount: Number(np.amount), note: np.note || ''
-    });
+    state.payments.push({ id: np.id, person, date: np.payment_date, amount: Number(np.amount), note: np.note || '' });
     renderStats(); renderPayments();
-  } catch (e) {
-    toast('Error: ' + e.message);
-  }
+  } catch (e) { toast('Error: ' + e.message); }
 }
 
 async function deletePayment(id) {
@@ -489,37 +532,111 @@ async function deletePayment(id) {
     if (r.error) throw r.error;
     state.payments = state.payments.filter(p => p.id !== id);
     renderStats(); renderPayments();
-  } catch (e) {
-    toast('Error: ' + e.message);
-  }
+  } catch (e) { toast('Error: ' + e.message); }
 }
 
-async function saveSettings(price, payers) {
+/* ---------- Onboarding ---------- */
+$('onboardSave').addEventListener('click', async () => {
+  const raw = $('onboardNames').value;
+  const price = Number($('onboardPrice').value) || 2.5;
+  const parsed = raw.split(',').map(s => s.trim()).filter(Boolean);
+
+  if (parsed.length === 0) {
+    $('onboardMsg').textContent = 'Introduce al menos un nombre.';
+    return;
+  }
+  if (new Set(parsed).size !== parsed.length) {
+    $('onboardMsg').textContent = 'Los nombres deben ser distintos.';
+    return;
+  }
+
   try {
+    const rows = parsed.map(n => ({ name: n, pays: true, fare_per_trip: price }));
+    let r = await sb.from('participants').insert(rows);
+    if (r.error) throw r.error;
+    r = await sb.from('settings').upsert({ user_id: user.id, price }, { onConflict: 'user_id' });
+    if (r.error) throw r.error;
+    await refresh();
+  } catch (e) {
+    $('onboardMsg').textContent = 'Error: ' + e.message;
+  }
+});
+
+/* ---------- Ajustes ---------- */
+$('savePrice').addEventListener('click', async () => {
+  const price = Math.max(0, Number($('price').value) || 0);
+  try {
+    let r = await sb.from('settings').upsert({ user_id: user.id, price }, { onConflict: 'user_id' });
+    if (r.error) throw r.error;
     for (const p of people) {
-      const r = await sb.from('participants').update({
-        fare_per_trip: price,
-        pays: !!payers[p.name]
-      }).eq('id', p.id);
+      r = await sb.from('participants').update({ fare_per_trip: price }).eq('id', p.id);
       if (r.error) throw r.error;
     }
-    const r = await sb.from('settings').upsert(
-      { user_id: user.id, price },
-      { onConflict: 'user_id' }
-    );
-    if (r.error) throw r.error;
+    await refresh();
+    toast('Precio guardado');
+  } catch (e) { toast('Error: ' + e.message); }
+});
 
-    state.price = price;
-    state.payers = payers;
-    people.forEach(p => { p.fare_per_trip = price; p.pays = !!payers[p.name]; });
-    renderAll();
-    toast('Ajustes guardados');
-  } catch (e) {
-    toast('Error: ' + e.message);
+$('peopleList').addEventListener('click', async e => {
+  const save = e.target.closest('[data-person-save]');
+  const del  = e.target.closest('[data-person-delete]');
+
+  if (save) {
+    const id = save.dataset.personSave;
+    const name = document.querySelector(`[data-person-name="${id}"]`).value.trim();
+    const pays = document.querySelector(`[data-person-pays="${id}"]`).checked;
+    if (!name) { toast('El nombre no puede estar vacío'); return; }
+    try {
+      const r = await sb.from('participants').update({ name, pays }).eq('id', id);
+      if (r.error) throw r.error;
+      await refresh();
+      toast('Pasajero actualizado');
+    } catch (err) { toast('Error: ' + err.message); }
   }
-}
 
-/* ---------------- Navegación / eventos ---------------- */
+  if (del) {
+    const id = del.dataset.personDelete;
+    const p = people.find(x => x.id === id);
+    if (!p) return;
+    if (!confirm(`¿Eliminar a ${p.name}? Se borrarán todos sus viajes y pagos.`)) return;
+    try {
+      const r = await sb.from('participants').delete().eq('id', id);
+      if (r.error) throw r.error;
+      await refresh();
+      toast('Pasajero eliminado');
+    } catch (err) { toast('Error: ' + err.message); }
+  }
+});
+
+$('newPersonForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const name = $('newPersonName').value.trim();
+  const pays = $('newPersonPays').checked;
+  if (!name) return;
+  try {
+    const r = await sb.from('participants').insert({
+      name, pays, fare_per_trip: state.price
+    });
+    if (r.error) throw r.error;
+    $('newPersonName').value = '';
+    await refresh();
+    toast('Pasajero añadido');
+  } catch (err) { toast('Error: ' + err.message); }
+});
+
+$('clearTrips').addEventListener('click', async () => {
+  if (!confirm('Se borrarán TODOS los viajes y pagos registrados, pero se mantendrán los pasajeros y el precio. ¿Continuar?')) return;
+  try {
+    let r = await sb.from('trip_entries').delete().eq('user_id', user.id);
+    if (r.error) throw r.error;
+    r = await sb.from('payments').delete().eq('user_id', user.id);
+    if (r.error) throw r.error;
+    await refresh();
+    toast('Viajes y pagos borrados');
+  } catch (e) { toast('Error: ' + e.message); }
+});
+
+/* ---------- Navegación / eventos ---------- */
 function showTab(tab) {
   document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
   document.querySelectorAll('[id^="tab-"]').forEach(s => s.classList.toggle('hidden', s.id !== 'tab-' + tab));
@@ -585,153 +702,12 @@ $('paymentRows').addEventListener('click', e => {
   if (b && confirm('¿Eliminar este pago?')) deletePayment(b.dataset.paydelete);
 });
 
-$('saveSettings').addEventListener('click', () => {
-  const price = Math.max(0, Number($('price').value) || 0);
-  const payers = {
-    Alba: $('paysAlba').checked,
-    Claudia: $('paysClaudia').checked,
-    Salva: $('paysSalva').checked
-  };
-  saveSettings(price, payers);
-});
-
-/* ---------------- Exportar / importar / reset ---------------- */
-function download(filename, content, type) {
-  const a = document.createElement('a'), url = URL.createObjectURL(new Blob([content], { type }));
-  a.href = url; a.download = filename; a.click(); URL.revokeObjectURL(url);
-}
-
-$('backupBtn').addEventListener('click', () =>
-  download('copia-viajes-uni.json', JSON.stringify(state, null, 2), 'application/json')
-);
-
-$('exportBtn').addEventListener('click', () => {
-  const rows = [['Fecha','Alba ida','Alba vuelta','Claudia ida','Claudia vuelta','Salva ida','Salva vuelta','Deuda Alba','Deuda Claudia','Total día']];
-  Object.keys(state.trips).sort().forEach(d => {
-    const t = getTrip(d);
-    rows.push([
-      d,
-      ...names.flatMap(n => [t[n]?.ida ? 'Sí' : 'No', t[n]?.vuelta ? 'Sí' : 'No']),
-      tripCost(d, 'Alba').toFixed(2),
-      tripCost(d, 'Claudia').toFixed(2),
-      dayCost(d).toFixed(2)
-    ]);
-  });
-  const csv = '\ufeff' + rows.map(r => r.map(x => `"${String(x).replace(/"/g, '""')}"`).join(';')).join('\n');
-  download('viajes-universidad.csv', csv, 'text/csv;charset=utf-8');
-});
-
-$('importBtn').addEventListener('click', () => $('importFile').click());
-$('importFile').addEventListener('change', async e => {
-  const f = e.target.files[0];
-  if (!f) return;
-  try {
-    const data = JSON.parse(await f.text());
-    if (!data || typeof data.price !== 'number' || !data.payers || !data.trips || !Array.isArray(data.payments)) {
-      throw new Error('formato no válido');
-    }
-    if (!confirm('Esto reemplazará todos tus viajes y pagos actuales por los de la copia. ¿Continuar?')) {
-      e.target.value = '';
-      return;
-    }
-
-    // Vaciar datos del usuario
-    let r = await sb.from('trip_entries').delete().eq('user_id', user.id);
-    if (r.error) throw r.error;
-    r = await sb.from('payments').delete().eq('user_id', user.id);
-    if (r.error) throw r.error;
-
-    // Insertar viajes
-    const tripRows = [];
-    for (const [date, day] of Object.entries(data.trips)) {
-      for (const name of names) {
-        const t = day[name];
-        if (!t) continue;
-        let direction = null;
-        if (t.ida && t.vuelta) direction = 'ida_vuelta';
-        else if (t.ida) direction = 'ida';
-        else if (t.vuelta) direction = 'vuelta';
-        if (!direction) continue;
-        const p = people.find(x => x.name === name);
-        if (!p) continue;
-        tripRows.push({ participant_id: p.id, trip_date: date, direction });
-      }
-    }
-    if (tripRows.length) {
-      r = await sb.from('trip_entries').insert(tripRows);
-      if (r.error) throw r.error;
-    }
-
-    // Insertar pagos
-    const payRows = [];
-    for (const pay of data.payments) {
-      const p = people.find(x => x.name === pay.person);
-      if (!p || !pay.date || !(Number(pay.amount) > 0)) continue;
-      payRows.push({
-        participant_id: p.id,
-        payment_date: pay.date,
-        amount: Number(pay.amount),
-        note: pay.note || ''
-      });
-    }
-    if (payRows.length) {
-      r = await sb.from('payments').insert(payRows);
-      if (r.error) throw r.error;
-    }
-
-    // Precio y quién paga
-    for (const p of people) {
-      await sb.from('participants').update({
-        fare_per_trip: data.price,
-        pays: !!data.payers[p.name]
-      }).eq('id', p.id);
-    }
-    await sb.from('settings').upsert({ user_id: user.id, price: data.price }, { onConflict: 'user_id' });
-
-    await loadAll();
-    toast('Copia importada');
-  } catch (err) {
-    alert('No se pudo importar: ' + err.message);
-  }
-  e.target.value = '';
-});
-
-$('resetBtn').addEventListener('click', async () => {
-  if (!confirm('Esto borrará todos los viajes y pagos de tu cuenta en Supabase. ¿Continuar?')) return;
-  try {
-    let r = await sb.from('trip_entries').delete().eq('user_id', user.id);
-    if (r.error) throw r.error;
-    r = await sb.from('payments').delete().eq('user_id', user.id);
-    if (r.error) throw r.error;
-    r = await sb.from('settings').delete().eq('user_id', user.id);
-    if (r.error) throw r.error;
-    for (const p of people) {
-      await sb.from('participants').update({ fare_per_trip: 2.5, pays: p.name !== 'Salva' }).eq('id', p.id);
-    }
-    await loadAll();
-    toast('Datos borrados');
-  } catch (e) {
-    toast('Error: ' + e.message);
-  }
-});
-
-/* ---------------- Auth ---------------- */
-async function handleAuthSuccess() {
-  showMain();
-  try {
-    await loadAll();
-  } catch (e) {
-    console.error(e);
-    toast('Error al cargar: ' + e.message);
-  }
-}
-
+/* ---------- Auth ---------- */
 $('loginBtn').addEventListener('click', async () => {
   if (!sb) return;
   $('authMsg').textContent = '';
   const { error } = await sb.auth.signInWithPassword({
-    email: $('email').value,
-    password: $('password').value
+    email: $('email').value, password: $('password').value
   });
   if (error) $('authMsg').textContent = error.message;
 });
@@ -740,8 +716,7 @@ $('signupBtn').addEventListener('click', async () => {
   if (!sb) return;
   $('authMsg').textContent = '';
   const { error } = await sb.auth.signUp({
-    email: $('email').value,
-    password: $('password').value
+    email: $('email').value, password: $('password').value
   });
   $('authMsg').textContent = error
     ? error.message
@@ -750,22 +725,22 @@ $('signupBtn').addEventListener('click', async () => {
 
 $('logoutBtn').addEventListener('click', () => sb.auth.signOut());
 
-/* ---------------- Init ---------------- */
+/* ---------- Init ---------- */
 async function init() {
   sb = window.supabase.createClient(SUPABASE_URL, KEY);
 
   const { data: { session } } = await sb.auth.getSession();
   if (session) {
     user = session.user;
-    await handleAuthSuccess();
+    try { await refresh(); } catch (e) { console.error(e); toast('Error al cargar: ' + e.message); }
   } else {
     showAuth();
   }
 
-  sb.auth.onAuthStateChange((_event, s) => {
+  sb.auth.onAuthStateChange((_e, s) => {
     if (s) {
       user = s.user;
-      setTimeout(() => handleAuthSuccess(), 0);
+      setTimeout(() => refresh().catch(e => toast('Error: ' + e.message)), 0);
     } else {
       user = null;
       showAuth();
