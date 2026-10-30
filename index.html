@@ -58,6 +58,25 @@ input[type="date"]::-webkit-calendar-picker-indicator{
   padding:0;
 }
 
+/* ===== input[type="color"] para el selector de color ===== */
+input[type="color"]{
+  -webkit-appearance:none;
+  appearance:none;
+  width:44px;
+  height:44px;
+  min-height:44px;
+  padding:4px;
+  border:1px solid #333;
+  border-radius:9px;
+  background:#111;
+  cursor:pointer;
+  overflow:hidden;
+  flex-shrink:0;
+}
+input[type="color"]::-webkit-color-swatch-wrapper{padding:0}
+input[type="color"]::-webkit-color-swatch{border:none;border-radius:6px}
+input[type="color"]::-moz-color-swatch{border:none;border-radius:6px}
+
 .app{max-width:1100px;margin:auto;padding:24px 16px 48px;padding:24px max(16px,env(safe-area-inset-right)) calc(48px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:20px}
 .brand h1{font-size:22px;margin:0 0 3px;line-height:1.2}
@@ -95,6 +114,8 @@ input[type="date"]::-webkit-calendar-picker-indicator{
 .daytotal{display:flex;justify-content:space-between;align-items:center;padding-top:15px;margin-top:4px;border-top:1px solid var(--line);gap:12px;flex-wrap:wrap}
 .bigmoney{font-size:21px;font-weight:750;color:var(--green)}
 
+.person-color-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;vertical-align:middle;flex-shrink:0;box-shadow:0 0 0 1px rgba(255,255,255,.1)}
+
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
 .stat{padding:14px;border:1px solid var(--line);border-radius:14px;background:#0c0c0c;min-width:0}
 .statlabel{font-size:12px;color:var(--muted);margin-bottom:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -124,10 +145,24 @@ td .smallbtn{padding:8px 12px;font-size:13px;min-height:36px}
 .dow{text-align:center;color:var(--muted);font-size:11px;padding:6px 0}
 .calday{min-height:78px;border:1px solid var(--line);border-radius:9px;padding:6px;background:#0b0b0b;text-align:left;display:flex;flex-direction:column;gap:4px;min-width:0;touch-action:manipulation}
 .calday.dim{opacity:.35}
+.calday.dimmed{opacity:.3}
 .calday.selected{border-color:var(--green);box-shadow:inset 0 0 0 1px var(--green)}
 .calday .num{font-size:12px}
 .calday .amount{font-size:11px;color:var(--green);font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .calday .names{font-size:10px;color:#aaa;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.calday .dots{display:flex;gap:3px;flex-wrap:wrap;margin-top:auto;line-height:1}
+.calday .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;display:inline-block;box-shadow:0 0 0 1px rgba(255,255,255,.08)}
+
+.cal-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.cal-legend .legend-item{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 10px;border:1px solid var(--line);background:#131313;
+  border-radius:999px;color:#ddd;font-size:12px;min-height:32px;
+  transition:border-color .15s,color .15s,background .15s;
+}
+.cal-legend .legend-item:hover{border-color:#555}
+.cal-legend .legend-item.active{border-color:var(--green);color:var(--green);background:#0d1f16;font-weight:600}
+.cal-legend .legend-swatch{width:12px;height:12px;border-radius:50%;flex-shrink:0;box-shadow:0 0 0 1px rgba(255,255,255,.1)}
 
 .hidden{display:none!important}
 .badge{font-size:11px;border:1px solid #343434;padding:3px 7px;border-radius:999px;color:#ccc}
@@ -147,9 +182,10 @@ td .smallbtn{padding:8px 12px;font-size:13px;min-height:36px}
 .auth-card .actions{margin-top:12px}
 .auth-card .actions button{flex:1}
 
-.person-edit{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.person-edit{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
 .person-edit:last-child{border-bottom:0}
 .person-edit input{min-width:0}
+.person-edit-controls{display:flex;align-items:center;gap:10px}
 .person-edit .row-actions{grid-column:1/-1;display:flex;gap:8px;margin-top:4px}
 .person-edit .row-actions button{flex:1;min-height:44px}
 
@@ -195,7 +231,7 @@ td .smallbtn{padding:8px 12px;font-size:13px;min-height:36px}
   .search-input{max-width:100%;width:100%}
   .panelhead{flex-wrap:wrap}
   .daytotal{gap:10px}
-  .person-edit{grid-template-columns:1fr auto}
+  .person-edit{grid-template-columns:minmax(0,1fr) auto}
   .person-edit .row-actions button{min-height:44px;padding:10px 14px;font-size:14px}
   #newPersonForm{flex-direction:column;align-items:stretch}
   #newPersonForm>*{width:100%}
@@ -224,12 +260,14 @@ td .smallbtn{padding:8px 12px;font-size:13px;min-height:36px}
   .calday{min-height:54px;padding:4px}
   .calday .num{font-size:11px}
   .calday .amount{font-size:10px}
+  .calday .dot{width:6px;height:6px}
   .dow{font-size:10px;padding:4px 0}
   .toast{left:12px;right:12px;transform:none;max-width:none}
   .toast.show{animation:slideUp .2s ease-out}
   @keyframes slideUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
   .top .actions button{padding:10px 8px;font-size:14px}
   .tabs{padding:72px 16px 32px}
+  .person-edit-controls{flex-wrap:wrap}
 }
 
 @media(prefers-reduced-motion:reduce){
@@ -332,8 +370,13 @@ td .smallbtn{padding:8px 12px;font-size:13px;min-height:36px}
               <button id="nextMonth" aria-label="Mes siguiente">›</button>
             </div>
           </div>
+          <div class="inline" style="margin-bottom:12px;flex-wrap:nowrap">
+            <label for="calendarFilter" class="muted" style="font-size:12px;white-space:nowrap">Filtrar:</label>
+            <select id="calendarFilter" style="min-height:36px;padding:8px 10px;font-size:14px"></select>
+          </div>
           <div class="calendar" id="calendar"></div>
-          <div class="note">Selecciona un día para editar sus trayectos.</div>
+          <div class="cal-legend" id="calLegend"></div>
+          <div class="note">Selecciona un día para editar sus trayectos. Cada color representa a un pasajero; toca un color para filtrar.</div>
         </section>
 
         <section class="panel hidden" id="tab-history">
@@ -384,6 +427,7 @@ td .smallbtn{padding:8px 12px;font-size:13px;min-height:36px}
           <hr style="border:0;border-top:1px solid var(--line);margin:20px 0">
 
           <div class="panelhead"><h2>Pasajeros</h2></div>
+          <p class="muted" style="margin:0 0 10px">Asigna un color a cada pasajero para identificarlo en el calendario.</p>
           <div id="peopleList"></div>
 
           <form id="newPersonForm" class="inline" style="margin-top:12px">
@@ -427,12 +471,17 @@ const SUPABASE_URL = 'https://rkqernwonfoxrrteyisa.supabase.co';
 const KEY = 'sb_publishable_xY53Hvr1T0rpqpHMblohpw_DVZZiAV7';
 const $ = id => document.getElementById(id);
 
+const COLOR_PALETTE = ['#35d98b','#5bb3ff','#ff9f5b','#c07dff','#ffd93d','#ff6b9d','#6bffd0','#ff8c42','#a0e57c','#e57cff','#ff5b5b','#5bff9f'];
+const defaultColor = i => COLOR_PALETTE[i % COLOR_PALETTE.length];
+
 let sb, user;
 let people = [];
 let names = [];
-let state = { price: 2.5, payers: {}, trips: {}, payments: [] };
+let state = { price: 2.5, payers: {}, trips: {}, payments: [], colors: {} };
 let selectedDate = isoToday();
 let calMonth = new Date();
+let calendarFilter = '';
+let colorDbWarned = false;
 
 function isoToday() {
   const d = new Date();
@@ -440,6 +489,15 @@ function isoToday() {
 }
 const money = n => Number(n || 0).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
 const escapeHtml = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function getColor(name) {
+  let c = state.colors && state.colors[name];
+  if (typeof c !== 'string') return '#888888';
+  c = c.trim();
+  if (/^#[0-9a-fA-F]{6}$/.test(c)) return c;
+  if (/^#[0-9a-fA-F]{3}$/.test(c)) return '#' + c[1]+c[1]+c[2]+c[2]+c[3]+c[3];
+  return '#888888';
+}
 
 function toast(s) {
   const t = $('toast');
@@ -467,7 +525,14 @@ async function loadAll() {
   if (r.error) throw r.error;
   people = r.data || [];
   names = people.map(p => p.name);
-  if (people.length === 0) { state = { price: 2.5, payers: {}, trips: {}, payments: [] }; return false; }
+
+  const colors = {};
+  people.forEach((p, i) => {
+    const local = localStorage.getItem('tripu_color_' + p.id);
+    colors[p.name] = p.color || local || defaultColor(i);
+  });
+
+  if (people.length === 0) { state = { price: 2.5, payers: {}, trips: {}, payments: [], colors: {} }; return false; }
 
   let price = 2.5;
   try {
@@ -501,7 +566,7 @@ async function loadAll() {
 
   const payers = {};
   people.forEach(p => { payers[p.name] = !!p.pays; });
-  state = { price, payers, trips, payments };
+  state = { price, payers, trips, payments, colors };
   $('payDate').value = isoToday();
   renderAll();
   return true;
@@ -543,7 +608,10 @@ function renderDay() {
         const cost = tripCost(selectedDate, n);
         const hint = pay ? ` · ${money(state.price)} por trayecto` : ' · No paga';
         return `<div class="person">
-          <div class="personhead"><span class="personname">${escapeHtml(n)}${hint}</span><span class="price">${money(cost)}</span></div>
+          <div class="personhead">
+            <span class="personname"><span class="person-color-dot" style="background:${getColor(n)}"></span>${escapeHtml(n)}${hint}</span>
+            <span class="price">${money(cost)}</span>
+          </div>
           <label class="checkrow"><input type="checkbox" data-person="${escapeHtml(n)}" data-way="ida" ${trip[n]?.ida ? 'checked' : ''}> Ida a la universidad</label>
           <label class="checkrow"><input type="checkbox" data-person="${escapeHtml(n)}" data-way="vuelta" ${trip[n]?.vuelta ? 'checked' : ''}> Vuelta a casa</label>
           ${!pay ? '<div class="muted">No genera deuda</div>' : ''}
@@ -569,30 +637,71 @@ function renderStats() {
   $('tripCount').textContent = `${Object.keys(state.trips).length} días registrados`;
   $('personSummary').innerHTML = stats.map(s => `
     <div class="person">
-      <div class="personhead"><span class="personname">${escapeHtml(s.name)}</span><span class="price">${money(s.balance)}</span></div>
+      <div class="personhead"><span class="personname"><span class="person-color-dot" style="background:${getColor(s.name)}"></span>${escapeHtml(s.name)}</span><span class="price">${money(s.balance)}</span></div>
       <div class="muted">${s.trips} trayectos · Coste ${money(s.owed)} · Pagado ${money(s.paid)}${!state.payers[s.name] ? ' · No acumula deuda' : ''}</div>
       ${s.balance < 0 ? '<div class="danger muted">Saldo a favor: has recibido más de lo registrado como deuda.</div>' : ''}
     </div>
   `).join('') || '<div class="empty">Sin pasajeros.</div>';
 }
 
+function renderCalendarFilter() {
+  const sel = $('calendarFilter');
+  if (!sel) return;
+  const cur = calendarFilter;
+  sel.innerHTML = '<option value="">Todos los pasajeros</option>' +
+    names.map(n => `<option value="${escapeHtml(n)}">${escapeHtml(n)}</option>`).join('');
+  if (names.includes(cur)) sel.value = cur;
+  else { sel.value = ''; calendarFilter = ''; }
+}
+
+function renderLegend() {
+  const el = $('calLegend');
+  if (!names.length) { el.innerHTML = ''; return; }
+  el.innerHTML = names.map(n => `
+    <button type="button" class="legend-item ${calendarFilter === n ? 'active' : ''}" data-filter-person="${escapeHtml(n)}">
+      <span class="legend-swatch" style="background:${getColor(n)}"></span>
+      <span>${escapeHtml(n)}</span>
+    </button>
+  `).join('') + (calendarFilter ? `<button type="button" class="legend-item" data-filter-person="">✕ Quitar filtro</button>` : '');
+}
+
 function renderCalendar() {
+  renderCalendarFilter();
   const y = calMonth.getFullYear(), m = calMonth.getMonth();
   $('monthLabel').textContent = calMonth.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
   const first = new Date(y, m, 1), offset = (first.getDay() + 6) % 7, days = new Date(y, m + 1, 0).getDate();
+  const filter = calendarFilter;
+
   let html = ['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'].map(x => `<div class="dow">${x}</div>`).join('');
   for (let i = 0; i < offset; i++) html += '<div></div>';
+
   for (let d = 1; d <= days; d++) {
     const date = `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-    const exists = !!state.trips[date];
     const t = getTrip(date);
-    const peopleList = names.filter(n => t[n]?.ida || t[n]?.vuelta).join(', ');
-    html += `<button type="button" class="calday ${date === selectedDate ? 'selected' : ''}" data-date="${date}" aria-label="${d}">
+    const travelers = names.filter(n => t[n]?.ida || t[n]?.vuelta);
+    const exists = travelers.length > 0;
+
+    let dimmed = '';
+    let amountHtml = '';
+    if (filter) {
+      const traveled = travelers.includes(filter);
+      if (!traveled) dimmed = 'dimmed';
+      else amountHtml = `<span class="amount" style="color:${getColor(filter)}">${money(tripCost(date, filter))}</span>`;
+    } else if (exists) {
+      amountHtml = `<span class="amount">${money(dayCost(date))}</span>`;
+    }
+
+    const dots = travelers.map(n => `<span class="dot" style="background:${getColor(n)}" title="${escapeHtml(n)}"></span>`).join('');
+
+    html += `<button type="button" class="calday ${date === selectedDate ? 'selected' : ''} ${dimmed}" data-date="${date}" aria-label="${d}">
       <span class="num">${d}</span>
-      ${exists ? `<span class="amount">${money(dayCost(date))}</span><span class="names">${escapeHtml(peopleList || 'Registrado')}</span>` : ''}
+      ${amountHtml}
+      ${travelers.length ? `<span class="names">${escapeHtml(travelers.join(', '))}</span>` : ''}
+      ${dots ? `<span class="dots">${dots}</span>` : ''}
     </button>`;
   }
   $('calendar').innerHTML = html;
+  renderLegend();
 }
 
 function renderHistory() {
@@ -640,7 +749,10 @@ function renderPeopleList() {
   $('peopleList').innerHTML = people.map(p => `
     <div class="person-edit">
       <input data-person-name="${p.id}" value="${escapeHtml(p.name)}" placeholder="Nombre" autocapitalize="words">
-      <label class="checkrow" style="white-space:nowrap"><input type="checkbox" data-person-pays="${p.id}" ${p.pays ? 'checked' : ''}> Paga</label>
+      <div class="person-edit-controls">
+        <input type="color" data-person-color="${p.id}" value="${getColor(p.name)}" title="Color en el calendario" aria-label="Color de ${escapeHtml(p.name)}">
+        <label class="checkrow" style="white-space:nowrap"><input type="checkbox" data-person-pays="${p.id}" ${p.pays ? 'checked' : ''}> Paga</label>
+      </div>
       <div class="row-actions">
         <button type="button" class="smallbtn" data-person-save="${p.id}">Guardar</button>
         <button type="button" class="smallbtn danger" data-person-delete="${p.id}">Eliminar</button>
@@ -651,6 +763,25 @@ function renderPeopleList() {
 
 function renderAll() {
   renderDay(); renderStats(); renderCalendar(); renderHistory(); renderPayments(); renderSettings();
+}
+
+async function savePersonColor(id, color) {
+  const p = people.find(x => x.id === id);
+  if (!p) return;
+  p.color = color;
+  state.colors[p.name] = color;
+  try {
+    const r = await sb.from('participants').update({ color }).eq('id', id);
+    if (r.error) throw r.error;
+    localStorage.removeItem('tripu_color_' + id);
+  } catch (e) {
+    localStorage.setItem('tripu_color_' + id, color);
+    if (!colorDbWarned) {
+      colorDbWarned = true;
+      toast('Color guardado solo en este dispositivo. Añade la columna "color" (text) a la tabla participants para sincronizarlo.');
+    }
+  }
+  renderCalendar();
 }
 
 async function saveTrip(date, person, way, checked) {
@@ -768,6 +899,12 @@ $('peopleList').addEventListener('click', async e => {
   }
 });
 
+$('peopleList').addEventListener('change', async e => {
+  if (e.target.matches('[data-person-color]')) {
+    await savePersonColor(e.target.dataset.personColor, e.target.value);
+  }
+});
+
 $('newPersonForm').addEventListener('submit', async e => {
   e.preventDefault();
   const name = $('newPersonName').value.trim();
@@ -840,6 +977,21 @@ $('calendar').addEventListener('click', e => {
     showTab('day');
     renderDay(); renderCalendar();
   }
+});
+
+$('calendarFilter').addEventListener('change', e => {
+  calendarFilter = e.target.value;
+  renderCalendar();
+});
+
+$('calLegend').addEventListener('click', e => {
+  const b = e.target.closest('[data-filter-person]');
+  if (!b) return;
+  const person = b.dataset.filterPerson || '';
+  if (person === '') calendarFilter = '';
+  else calendarFilter = calendarFilter === person ? '' : person;
+  $('calendarFilter').value = calendarFilter;
+  renderCalendar();
 });
 
 $('historySearch').addEventListener('input', renderHistory);
