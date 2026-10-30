@@ -1,310 +1,783 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TripU</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Viajes a la uni</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--bg:#101714;--card:#19231f;--text:#edf5f0;--muted:#9aaca2;--line:#304139;--mint:#43d9a3}
-[data-theme=light]{--bg:#f3f7f5;--card:#fff;--text:#17251e;--muted:#64766c;--line:#dce7e0;--mint:#159b70}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:15px system-ui}
-.wrap{max-width:720px;margin:auto;padding:20px 14px}
-.top,.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.brand{font-size:27px;font-weight:850}
-.brand b{color:var(--mint)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:17px;margin:14px 0}
-h1{font-size:22px}
-h2{font-size:17px;margin:0 0 12px}
-.muted,label{color:var(--muted);font-size:13px}
-input{padding:11px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text);width:100%;margin:5px 0 12px}
-button{border:0;border-radius:11px;padding:10px 13px;background:#26372f;color:var(--text);font-weight:650;cursor:pointer}
-button.primary,.active{background:var(--mint);color:#08251a}
-.ghost{background:transparent;border:1px solid var(--line)}
-.person{display:flex;align-items:center;gap:9px;border-top:1px solid var(--line);padding:12px 0}
-.person:first-of-type{border:0}
-.grow{flex:1}
-.name{font-weight:700}
-.small{font-size:12px;color:var(--muted)}
-.trip{padding:9px;min-width:58px}
-.total{font-size:30px;font-weight:850}
-.hidden{display:none!important}
-.notice{background:#26372f;padding:10px;border-radius:10px;color:var(--muted);font-size:13px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+:root{color-scheme:dark;--bg:#080808;--panel:#0d0d0d;--line:#252525;--muted:#a5a5a5;--text:#f2f2f2;--green:#35d98b;--red:#ff7777;--radius:18px}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+button,input,select{font:inherit}button{cursor:pointer;border:1px solid var(--line);background:#151515;color:var(--text);padding:9px 12px;border-radius:10px}button:hover{border-color:#555}button:disabled{opacity:.5;cursor:not-allowed}input,select{background:#111;color:var(--text);border:1px solid #333;border-radius:9px;padding:9px;min-width:0;width:100%}
+.app{max-width:1100px;margin:auto;padding:24px 16px 48px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:20px}.brand h1{font-size:22px;margin:0 0 3px}.sub,.muted{color:var(--muted);font-size:13px}.actions{display:flex;gap:8px;flex-wrap:wrap}.primary{background:var(--green);color:#06150d;border-color:var(--green);font-weight:700}.layout{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:16px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px;min-width:0}.panel h2{font-size:16px;margin:0}.panelhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}.dayhead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding-bottom:16px;border-bottom:1px solid var(--line)}.dayhead h2{margin-bottom:4px}.person{padding:16px 0;border-bottom:1px solid var(--line)}.person:last-of-type{border-bottom:0}.personhead{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:10px}.personname{font-weight:650}.price{color:var(--green);font-weight:700;white-space:nowrap}.checkrow{display:flex;align-items:center;gap:10px;padding:5px 0;color:#ddd}.checkrow input{width:18px;height:18px;accent-color:var(--green)}.daytotal{display:flex;justify-content:space-between;align-items:center;padding-top:15px;margin-top:4px;border-top:1px solid var(--line)}.bigmoney{font-size:21px;font-weight:750;color:var(--green)}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}.stat{padding:14px;border:1px solid var(--line);border-radius:14px;background:#0c0c0c}.statlabel{font-size:12px;color:var(--muted);margin-bottom:5px}.statvalue{font-size:21px;font-weight:750}.statvalue.green{color:var(--green)}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}.tab.active{border-color:var(--green);color:var(--green)}.field{display:grid;gap:5px;margin-bottom:11px}.field label{font-size:12px;color:var(--muted)}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.scroll{overflow:auto}table{width:100%;border-collapse:collapse;min-width:540px}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);font-size:13px}th{color:var(--muted);font-weight:600}td.money{white-space:nowrap}td .smallbtn{padding:5px 8px;font-size:12px}.monthnav{display:flex;align-items:center;gap:8px}.monthnav strong{min-width:130px;text-align:center}.calendar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}.dow{text-align:center;color:var(--muted);font-size:11px;padding:6px 0}.calday{min-height:78px;border:1px solid var(--line);border-radius:9px;padding:6px;background:#0b0b0b;text-align:left;display:flex;flex-direction:column;gap:4px}.calday.dim{opacity:.35}.calday.selected{border-color:var(--green);box-shadow:inset 0 0 0 1px var(--green)}.calday .num{font-size:12px}.calday .amount{font-size:11px;color:var(--green);font-weight:700}.calday .names{font-size:10px;color:#aaa;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.hidden{display:none!important}.badge{font-size:11px;border:1px solid #343434;padding:3px 7px;border-radius:999px;color:#ccc}.empty{padding:25px 10px;text-align:center;color:var(--muted)}.note{font-size:12px;color:var(--muted);margin-top:10px}.danger{color:var(--red)}.inline{display:flex;gap:8px;align-items:center}.inline input{max-width:110px}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#eee;color:#111;padding:10px 14px;border-radius:10px;display:none;z-index:10;max-width:90%}
+.auth-card{max-width:440px;margin:60px auto}.auth-card .brand{text-align:center;margin-bottom:18px}.auth-card .brand h1{font-size:24px;margin:0 0 6px}.auth-card .brand .sub{display:block;margin:0}.auth-card .actions{margin-top:12px}.auth-card .actions button{flex:1}
+@media(max-width:780px){.layout{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.statvalue{font-size:19px}.app{padding:16px 11px 32px}.panel{padding:14px}.calday{min-height:62px;padding:4px}.calday .names{display:none}.formgrid{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header class="top">
-    <div class="brand">Trip<b>U</b></div>
-    <div>
-      <button class="ghost" id="theme">☼</button>
-      <button class="ghost hidden" id="logout">Salir</button>
-    </div>
-  </header>
+<div class="app">
 
-  <section id="auth" class="card">
-    <h1>Tu cuenta TripU</h1>
-    <label>Correo electrónico</label>
-    <input id="email" type="email">
-    <label>Contraseña</label>
-    <input id="password" type="password">
-    <div class="row">
-      <button class="primary" id="login">Iniciar sesión</button>
-      <button id="signup">Crear cuenta</button>
-    </div>
-    <p id="authmsg" class="notice">Configura las claves de Supabase en el archivo, tal como indica README.md.</p>
-  </section>
-
-  <main id="app" class="hidden">
-    <div class="row">
-      <div>
-        <h1>Registro de viajes</h1>
-        <div class="muted">Marca quién hace cada trayecto.</div>
+  <!-- Pantalla de login -->
+  <div id="authScreen" class="hidden">
+    <div class="panel auth-card">
+      <div class="brand">
+        <h1>🚗 Viajes a la uni</h1>
+        <span class="sub">Inicia sesión para sincronizar tus viajes en todos tus dispositivos.</span>
       </div>
-      <input style="max-width:175px" id="date" type="date">
-    </div>
-
-    <section class="card">
-      <div class="row">
-        <h2>Pasajeros</h2>
-        <button id="manage">Editar lista</button>
+      <div class="field"><label for="email">Correo electrónico</label><input id="email" type="email" autocomplete="email"></div>
+      <div class="field"><label for="password">Contraseña</label><input id="password" type="password" autocomplete="current-password"></div>
+      <div class="actions">
+        <button class="primary" id="loginBtn">Iniciar sesión</button>
+        <button id="signupBtn">Crear cuenta</button>
       </div>
-      <div id="people"></div>
-      <p id="empty" class="notice hidden">Añade pasajeros desde «Editar lista».</p>
+      <div id="authMsg" class="note"></div>
+    </div>
+  </div>
+
+  <!-- App principal -->
+  <div id="mainApp" class="hidden">
+    <header class="top">
+      <div class="brand"><h1>🚗 Viajes a la uni</h1><div class="sub">Control de trayectos, pagos y deudas · Tus datos se guardan en la nube</div></div>
+      <div class="actions">
+        <button id="exportBtn">Exportar CSV</button>
+        <button id="backupBtn">Copia de seguridad</button>
+        <button class="primary" id="todayBtn">＋ Registrar viaje</button>
+        <button id="logoutBtn">Salir</button>
+      </div>
+    </header>
+
+    <section class="cards">
+      <div class="stat"><div class="statlabel">Alba te debe</div><div class="statvalue green" id="albaBalance">0,00 €</div><div class="muted" id="albaDetail">0 trayectos</div></div>
+      <div class="stat"><div class="statlabel">Claudia te debe</div><div class="statvalue green" id="claudiaBalance">0,00 €</div><div class="muted" id="claudiaDetail">0 trayectos</div></div>
+      <div class="stat"><div class="statlabel">Total pendiente</div><div class="statvalue" id="totalBalance">0,00 €</div><div class="muted" id="tripCount">0 días registrados</div></div>
     </section>
 
-    <section class="card row">
-      <div>
-        <div class="muted">Total a cobrar hoy</div>
-        <div id="total" class="total">0,00 €</div>
-      </div>
-      <div>
-        <div class="muted">Trayectos</div>
-        <b id="count">0</b>
-      </div>
-    </section>
+    <div class="tabs">
+      <button class="tab active" data-tab="day">Registro diario</button>
+      <button class="tab" data-tab="calendar">Calendario</button>
+      <button class="tab" data-tab="history">Historial</button>
+      <button class="tab" data-tab="payments">Pagos</button>
+      <button class="tab" data-tab="settings">Ajustes</button>
+    </div>
 
-    <section id="settings" class="card hidden">
-      <div class="row">
-        <h2>Personalizar pasajeros</h2>
-        <button id="close">Cerrar</button>
-      </div>
-      <label>Nombre</label>
-      <input id="newname" placeholder="Nombre">
-      <div class="grid">
-        <div>
-          <label>Precio por trayecto (€)</label>
-          <input id="fare" type="number" min="0" step=".01" value="2.50">
+    <div class="layout">
+      <main>
+        <section class="panel" id="tab-day">
+          <div class="dayhead">
+            <div><h2>🚗 Viajes del día</h2><div class="sub">Marca quién fue y quién volvió. Cada trayecto pagado cuesta 2,50 €.</div></div>
+            <input id="dayDate" type="date" style="width:auto;max-width:160px">
+          </div>
+          <div id="dayPeople"></div>
+          <div class="daytotal">
+            <div><div class="muted">Total que te deben este día</div><div class="bigmoney" id="dayTotal">0,00 €</div></div>
+            <button id="clearDay">Desmarcar todo</button>
+          </div>
+          <div class="note">Salva no genera deuda: os turnáis el coche cada semana. Puedes registrar sus trayectos para tener el calendario completo.</div>
+        </section>
+
+        <section class="panel hidden" id="tab-calendar">
+          <div class="panelhead">
+            <h2>Calendario de viajes</h2>
+            <div class="monthnav">
+              <button id="prevMonth">‹</button>
+              <strong id="monthLabel"></strong>
+              <button id="nextMonth">›</button>
+            </div>
+          </div>
+          <div class="calendar" id="calendar"></div>
+          <div class="note">Selecciona un día para editar sus trayectos.</div>
+        </section>
+
+        <section class="panel hidden" id="tab-history">
+          <div class="panelhead">
+            <h2>Historial de viajes</h2>
+            <input id="historySearch" placeholder="Buscar fecha o persona…" style="max-width:220px">
+          </div>
+          <div class="scroll">
+            <table>
+              <thead><tr><th>Fecha</th><th>Alba</th><th>Claudia</th><th>Salva</th><th>Deuda del día</th><th></th></tr></thead>
+              <tbody id="historyRows"></tbody>
+            </table>
+          </div>
+          <div class="note">El importe del historial refleja el coste de los trayectos, antes de descontar pagos.</div>
+        </section>
+
+        <section class="panel hidden" id="tab-payments">
+          <div class="panelhead"><h2>Registrar un pago</h2></div>
+          <form id="paymentForm">
+            <div class="formgrid">
+              <div class="field"><label for="payPerson">Persona</label><select id="payPerson"><option>Alba</option><option>Claudia</option></select></div>
+              <div class="field"><label for="payDate">Fecha del pago</label><input id="payDate" type="date" required></div>
+            </div>
+            <div class="formgrid">
+              <div class="field"><label for="payAmount">Importe (€)</label><input id="payAmount" type="number" min="0.01" step="0.01" placeholder="Ej. 10" required></div>
+              <div class="field"><label for="payNote">Nota (opcional)</label><input id="payNote" placeholder="Bizum, efectivo…"></div>
+            </div>
+            <button class="primary" type="submit">Guardar pago</button>
+          </form>
+          <div class="panelhead" style="margin-top:22px"><h2>Pagos registrados</h2></div>
+          <div class="scroll">
+            <table>
+              <thead><tr><th>Fecha</th><th>Persona</th><th>Nota</th><th>Importe</th><th></th></tr></thead>
+              <tbody id="paymentRows"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel hidden" id="tab-settings">
+          <div class="panelhead"><h2>Ajustes</h2></div>
+          <div class="formgrid">
+            <div class="field"><label for="price">Precio por trayecto (€)</label><input id="price" type="number" min="0" step="0.5"></div>
+            <div class="field"><label for="roundPrice">Precio ida y vuelta (€)</label><input id="roundPrice" disabled></div>
+          </div>
+          <div class="field">
+            <label>Personas y si pagan</label>
+            <div class="formgrid">
+              <label class="checkrow"><input type="checkbox" id="paysAlba"> Alba paga</label>
+              <label class="checkrow"><input type="checkbox" id="paysClaudia"> Claudia paga</label>
+              <label class="checkrow"><input type="checkbox" id="paysSalva"> Salva paga</label>
+            </div>
+          </div>
+          <button class="primary" id="saveSettings">Guardar ajustes</button>
+          <hr style="border:0;border-top:1px solid var(--line);margin:20px 0">
+          <div class="panelhead"><h2>Datos</h2></div>
+          <p class="muted">Los registros se guardan en tu cuenta de Supabase, así que están disponibles en cualquier dispositivo donde inicies sesión.</p>
+          <div class="actions">
+            <button id="importBtn">Importar copia JSON</button>
+            <input type="file" id="importFile" accept=".json,application/json" class="hidden">
+            <button id="resetBtn" class="danger">Borrar todos los datos</button>
+          </div>
+        </section>
+      </main>
+
+      <aside class="panel">
+        <div class="panelhead"><h2>Resumen por persona</h2><span class="badge">Actualizado al momento</span></div>
+        <div id="personSummary"></div>
+        <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
+        <h2 style="margin-bottom:12px">Cómo se calcula</h2>
+        <div class="muted">
+          • Ida = precio por trayecto.<br>
+          • Vuelta = precio por trayecto.<br>
+          • Ida + vuelta = precio doble.<br>
+          • Los pagos registrados se restan del importe acumulado.<br>
+          • Salva no suma deuda mientras tenga desactivada la opción “paga”.
         </div>
-        <div class="row">
-          <label><input id="pays" type="checkbox" checked style="width:auto"> Paga</label>
-        </div>
-      </div>
-      <button class="primary" id="add">Añadir pasajero</button>
-      <div id="manageList"></div>
-    </section>
-  </main>
+        <div class="note">Puedes cambiar el precio y quién paga en Ajustes.</div>
+      </aside>
+    </div>
+  </div>
 
-  <p id="msg" class="notice hidden"></p>
+  <div class="toast" id="toast"></div>
 </div>
 
 <script>
 const SUPABASE_URL = 'https://rkqernwonfoxrrteyisa.supabase.co';
 const KEY = 'sb_publishable_xY53Hvr1T0rpqpHMblohpw_DVZZiAV7';
-const $ = x => document.getElementById(x);
+const $ = id => document.getElementById(id);
+const names = ['Alba', 'Claudia', 'Salva'];
+const defaults = { price: 2.5, payers: { Alba: true, Claudia: true, Salva: false }, trips: {}, payments: [] };
 
-let sb, user, people = [], entries = [];
+let sb, user;
+let people = [];                                  // [{id, name, fare_per_trip, pays}]
+let state = structuredClone(defaults);            // {price, payers, trips, payments}
+let selectedDate = isoToday();
+let calMonth = new Date();
 
-console.log('URL:', SUPABASE_URL);
-console.log('URL válida:', SUPABASE_URL.startsWith('https://') && SUPABASE_URL.endsWith('.supabase.co'));
+function isoToday() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+const money = n => Number(n || 0).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
+const escapeHtml = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-const configured = SUPABASE_URL.startsWith('https://') && !SUPABASE_URL.includes('PEGA_AQUI') && !KEY.includes('PEGA_AQUI');
-
-const localDate = d => new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
-$('date').value = localDate(new Date());
-
-const eur = n => new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(n || 0);
-
-function notice(id, t) {
-  $(id).textContent = t;
-  $(id).classList.remove('hidden');
+function toast(s) {
+  const t = $('toast');
+  t.textContent = s;
+  t.style.display = 'block';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => t.style.display = 'none', 2600);
 }
 
-function authView() {
-  $('auth').classList.remove('hidden');
-  $('app').classList.add('hidden');
-  $('logout').classList.add('hidden');
+/* ---------------- Vistas ---------------- */
+function showAuth() {
+  $('authScreen').classList.remove('hidden');
+  $('mainApp').classList.add('hidden');
+}
+function showMain() {
+  $('authScreen').classList.add('hidden');
+  $('mainApp').classList.remove('hidden');
 }
 
-function appView() {
-  $('auth').classList.add('hidden');
-  $('app').classList.remove('hidden');
-  $('logout').classList.remove('hidden');
-}
-
-async function load() {
+/* ---------------- Carga desde Supabase ---------------- */
+async function loadAll() {
+  // Participantes
   let r = await sb.from('participants').select('*').eq('archived', false).order('created_at');
   if (r.error) throw r.error;
-  people = r.data;
-  r = await sb.from('trip_entries').select('*').eq('trip_date', $('date').value);
+  people = r.data || [];
+
+  if (people.length === 0) {
+    const seed = [
+      { name: 'Alba',    pays: true,  fare_per_trip: 2.5 },
+      { name: 'Claudia', pays: true,  fare_per_trip: 2.5 },
+      { name: 'Salva',   pays: false, fare_per_trip: 2.5 }
+    ];
+    r = await sb.from('participants').insert(seed).select();
+    if (r.error) throw r.error;
+    people = r.data;
+  }
+
+  // Ajustes (precio global)
+  r = await sb.from('settings').select('*').eq('user_id', user.id).maybeSingle();
   if (r.error) throw r.error;
-  entries = r.data;
-  render();
+  let price = 2.5;
+  if (r.data) {
+    price = Number(r.data.price);
+  } else {
+    const ins = await sb.from('settings').insert({ price: 2.5 });
+    if (ins.error) throw ins.error;
+  }
+
+  // Trayectos
+  r = await sb.from('trip_entries').select('*');
+  if (r.error) throw r.error;
+  const trips = {};
+  (r.data || []).forEach(e => {
+    const p = people.find(x => x.id === e.participant_id);
+    if (!p) return;
+    if (!trips[e.trip_date]) trips[e.trip_date] = {};
+    if (!trips[e.trip_date][p.name]) trips[e.trip_date][p.name] = { ida: false, vuelta: false };
+    trips[e.trip_date][p.name].ida    = e.direction === 'ida'    || e.direction === 'ida_vuelta';
+    trips[e.trip_date][p.name].vuelta = e.direction === 'vuelta' || e.direction === 'ida_vuelta';
+  });
+
+  // Pagos
+  r = await sb.from('payments').select('*').order('payment_date', { ascending: false });
+  if (r.error) throw r.error;
+  const payments = (r.data || []).map(p => ({
+    id: p.id,
+    person: people.find(x => x.id === p.participant_id)?.name || '?',
+    date: p.payment_date,
+    amount: Number(p.amount),
+    note: p.note || ''
+  }));
+
+  // Estado local
+  const payers = {};
+  people.forEach(p => { payers[p.name] = !!p.pays; });
+
+  state = { price, payers, trips, payments };
+  $('payDate').value = isoToday();
+  renderAll();
 }
 
-function render() {
-  $('people').innerHTML = '';
-  $('empty').classList.toggle('hidden', people.length > 0);
-  people.forEach(p => {
-    let e = entries.find(x => x.participant_id === p.id);
-    let d = document.createElement('div');
-    d.className = 'person';
-    let info = document.createElement('div');
-    info.className = 'grow';
-    info.innerHTML = '<div class="name"></div><div class="small"></div>';
-    info.children[0].textContent = p.name;
-    info.children[1].textContent = p.pays ? 'Paga · ' + eur(p.fare_per_trip) + ' por trayecto' : 'No paga';
-    d.append(info);
-    ['ida', 'vuelta'].forEach(dir => {
-      let b = document.createElement('button');
-      b.className = 'trip ' + (e && (e.direction === dir || e.direction === 'ida_vuelta') ? 'active' : '');
-      b.textContent = dir === 'ida' ? 'Ida' : 'Vuelta';
-      b.onclick = () => toggle(p, dir);
-      d.append(b);
-    });
-    $('people').append(d);
-  });
-  let count = 0, total = 0;
-  entries.forEach(e => {
-    let n = e.direction === 'ida_vuelta' ? 2 : 1;
-    count += n;
-    total += n * Number(e.fare_applied);
-  });
-  $('total').textContent = eur(total);
-  $('count').textContent = count;
-  renderManage();
+/* ---------------- Modelo ---------------- */
+function getTrip(date) {
+  const base = {};
+  names.forEach(n => base[n] = { ida: false, vuelta: false });
+  return { ...base, ...(state.trips[date] || {}) };
+}
+function ensureTrip(date) {
+  if (!state.trips[date]) state.trips[date] = {};
+  return state.trips[date];
+}
+function tripCost(date, person) {
+  const t = getTrip(date)[person] || {};
+  return state.payers[person] ? (Number(!!t.ida) + Number(!!t.vuelta)) * state.price : 0;
+}
+function personStats(person) {
+  let owed = 0, trips = 0, days = 0;
+  for (const [date, record] of Object.entries(state.trips)) {
+    const t = record[person] || {};
+    const n = Number(!!t.ida) + Number(!!t.vuelta);
+    if (n) {
+      days++;
+      trips += n;
+      owed += state.payers[person] ? n * state.price : 0;
+    }
+  }
+  const paid = state.payments.filter(p => p.person === person).reduce((s, p) => s + Number(p.amount), 0);
+  return { owed, paid, balance: owed - paid, trips, days };
+}
+function dayCost(date) {
+  return names.reduce((s, n) => s + tripCost(date, n), 0);
 }
 
-async function toggle(p, dir) {
+/* ---------------- Render ---------------- */
+function renderDay() {
+  $('dayDate').value = selectedDate;
+  const trip = getTrip(selectedDate);
+  $('dayPeople').innerHTML = names.map(n => {
+    const pay = !!state.payers[n];
+    const cost = tripCost(selectedDate, n);
+    const hint = n === 'Salva' && !pay ? ' · Turno del coche' : ` · ${pay ? money(state.price) + ' por trayecto' : 'No paga'}`;
+    return `<div class="person">
+      <div class="personhead"><span class="personname">${n}${hint}</span><span class="price">${money(cost)}</span></div>
+      <label class="checkrow"><input type="checkbox" data-person="${n}" data-way="ida" ${trip[n]?.ida ? 'checked' : ''}> Ida a la universidad</label>
+      <label class="checkrow"><input type="checkbox" data-person="${n}" data-way="vuelta" ${trip[n]?.vuelta ? 'checked' : ''}> Vuelta a casa</label>
+      ${!pay ? '<div class="muted">No genera deuda</div>' : ''}
+    </div>`;
+  }).join('');
+  $('dayTotal').textContent = money(dayCost(selectedDate));
+}
+
+function renderStats() {
+  const a = personStats('Alba'), c = personStats('Claudia');
+  $('albaBalance').textContent = money(a.balance);
+  $('claudiaBalance').textContent = money(c.balance);
+  $('totalBalance').textContent = money(a.balance + c.balance);
+  $('albaDetail').textContent = `${a.trips} trayectos · Pagado ${money(a.paid)}`;
+  $('claudiaDetail').textContent = `${c.trips} trayectos · Pagado ${money(c.paid)}`;
+  $('tripCount').textContent = `${Object.keys(state.trips).length} días registrados`;
+  $('personSummary').innerHTML = names.map(n => {
+    const s = personStats(n);
+    return `<div class="person">
+      <div class="personhead"><span class="personname">${n}</span><span class="price">${money(s.balance)}</span></div>
+      <div class="muted">${s.trips} trayectos · Coste ${money(s.owed)} · Pagado ${money(s.paid)}</div>
+      ${s.balance < 0 ? '<div class="danger muted">Saldo a favor: has recibido más de lo registrado como deuda.</div>' : ''}
+    </div>`;
+  }).join('');
+}
+
+function renderCalendar() {
+  const y = calMonth.getFullYear(), m = calMonth.getMonth();
+  $('monthLabel').textContent = calMonth.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
+  const first = new Date(y, m, 1), offset = (first.getDay() + 6) % 7, days = new Date(y, m + 1, 0).getDate();
+  let html = ['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'].map(x => `<div class="dow">${x}</div>`).join('');
+  for (let i = 0; i < offset; i++) html += '<div></div>';
+  for (let d = 1; d <= days; d++) {
+    const date = `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+    const exists = !!state.trips[date];
+    const t = getTrip(date);
+    const peopleList = names.filter(n => t[n]?.ida || t[n]?.vuelta).join(', ');
+    html += `<button class="calday ${date === selectedDate ? 'selected' : ''}" data-date="${date}">
+      <span class="num">${d}</span>
+      ${exists ? `<span class="amount">${money(dayCost(date))}</span><span class="names">${peopleList || 'Registrado'}</span>` : ''}
+    </button>`;
+  }
+  $('calendar').innerHTML = html;
+}
+
+function renderHistory() {
+  const q = $('historySearch').value.toLowerCase();
+  const dates = Object.keys(state.trips).sort((a, b) => b.localeCompare(a)).filter(d => {
+    const t = state.trips[d];
+    return (d + ' ' + names.filter(n => t[n]?.ida || t[n]?.vuelta).join(' ')).toLowerCase().includes(q);
+  });
+  $('historyRows').innerHTML = dates.length
+    ? dates.map(d => `<tr>
+        <td>${new Date(d + 'T12:00:00').toLocaleDateString('es-ES')}</td>
+        ${names.map(n => {
+          const t = getTrip(d)[n];
+          return `<td>${t.ida ? 'Ida' : ''}${t.ida && t.vuelta ? ' + ' : ''}${t.vuelta ? 'Vuelta' : ''}${!t.ida && !t.vuelta ? '—' : ''}</td>`;
+        }).join('')}
+        <td class="money">${money(dayCost(d))}</td>
+        <td><button class="smallbtn" data-edit="${d}">Editar</button> <button class="smallbtn danger" data-delete="${d}">×</button></td>
+      </tr>`).join('')
+    : '<tr><td colspan="6" class="empty">Todavía no hay viajes registrados.</td></tr>';
+}
+
+function renderPayments() {
+  $('paymentRows').innerHTML = state.payments.length
+    ? [...state.payments].sort((a, b) => b.date.localeCompare(a.date)).map(p => `<tr>
+        <td>${new Date(p.date + 'T12:00:00').toLocaleDateString('es-ES')}</td>
+        <td>${p.person}</td>
+        <td>${escapeHtml(p.note || '—')}</td>
+        <td class="money">${money(p.amount)}</td>
+        <td><button class="smallbtn danger" data-paydelete="${p.id}">Eliminar</button></td>
+      </tr>`).join('')
+    : '<tr><td colspan="5" class="empty">Todavía no hay pagos registrados.</td></tr>';
+}
+
+function renderSettings() {
+  $('roundPrice').value = (state.price * 2).toFixed(2);
+  $('price').value = state.price;
+  $('paysAlba').checked = !!state.payers.Alba;
+  $('paysClaudia').checked = !!state.payers.Claudia;
+  $('paysSalva').checked = !!state.payers.Salva;
+}
+
+function renderAll() {
+  renderDay();
+  renderStats();
+  renderCalendar();
+  renderHistory();
+  renderPayments();
+  renderSettings();
+}
+
+/* ---------------- Mutaciones (Supabase) ---------------- */
+async function saveTrip(date, person, way, checked) {
+  const p = people.find(x => x.name === person);
+  if (!p) { toast('Persona no encontrada'); return; }
+
+  // Actualización optimista
+  ensureTrip(date);
+  if (!state.trips[date][person]) state.trips[date][person] = { ida: false, vuelta: false };
+  state.trips[date][person][way] = checked;
+  renderDay(); renderStats(); renderCalendar(); renderHistory();
+
+  const trip = state.trips[date][person];
+  let direction = null;
+  if (trip.ida && trip.vuelta) direction = 'ida_vuelta';
+  else if (trip.ida) direction = 'ida';
+  else if (trip.vuelta) direction = 'vuelta';
+
   try {
-    let e = entries.find(x => x.participant_id === p.id);
-    let next = !e ? dir : e.direction === dir ? null : e.direction === 'ida_vuelta' ? (dir === 'ida' ? 'vuelta' : 'ida') : 'ida_vuelta';
-    let r;
-    if (e && next === null) {
-      r = await sb.from('trip_entries').delete().eq('id', e.id);
-    } else if (e) {
-      r = await sb.from('trip_entries').update({ direction: next }).eq('id', e.id);
+    if (!direction) {
+      const r = await sb.from('trip_entries').delete().eq('participant_id', p.id).eq('trip_date', date);
+      if (r.error) throw r.error;
+      const any = names.some(n => state.trips[date]?.[n]?.ida || state.trips[date]?.[n]?.vuelta);
+      if (!any) delete state.trips[date];
     } else {
-      r = await sb.from('trip_entries').insert({
+      const r = await sb.from('trip_entries').upsert(
+        { participant_id: p.id, trip_date: date, direction },
+        { onConflict: 'participant_id,trip_date' }
+      );
+      if (r.error) throw r.error;
+    }
+  } catch (e) {
+    toast('Error al guardar: ' + e.message);
+    try { await loadAll(); } catch (_) {}
+  }
+}
+
+async function clearDay(date) {
+  try {
+    const r = await sb.from('trip_entries').delete().eq('user_id', user.id).eq('trip_date', date);
+    if (r.error) throw r.error;
+    delete state.trips[date];
+    renderAll();
+  } catch (e) {
+    toast('Error: ' + e.message);
+  }
+}
+
+async function deleteDay(date) {
+  try {
+    const r = await sb.from('trip_entries').delete().eq('user_id', user.id).eq('trip_date', date);
+    if (r.error) throw r.error;
+    delete state.trips[date];
+    renderAll();
+  } catch (e) {
+    toast('Error: ' + e.message);
+  }
+}
+
+async function addPayment(person, date, amount, note) {
+  const p = people.find(x => x.name === person);
+  if (!p) { toast('Persona no encontrada'); return; }
+  try {
+    const r = await sb.from('payments').insert({
+      participant_id: p.id,
+      payment_date: date,
+      amount,
+      note: note || ''
+    }).select();
+    if (r.error) throw r.error;
+    const np = r.data[0];
+    state.payments.push({
+      id: np.id, person, date: np.payment_date, amount: Number(np.amount), note: np.note || ''
+    });
+    renderStats(); renderPayments();
+  } catch (e) {
+    toast('Error: ' + e.message);
+  }
+}
+
+async function deletePayment(id) {
+  try {
+    const r = await sb.from('payments').delete().eq('id', id);
+    if (r.error) throw r.error;
+    state.payments = state.payments.filter(p => p.id !== id);
+    renderStats(); renderPayments();
+  } catch (e) {
+    toast('Error: ' + e.message);
+  }
+}
+
+async function saveSettings(price, payers) {
+  try {
+    for (const p of people) {
+      const r = await sb.from('participants').update({
+        fare_per_trip: price,
+        pays: !!payers[p.name]
+      }).eq('id', p.id);
+      if (r.error) throw r.error;
+    }
+    const r = await sb.from('settings').upsert(
+      { user_id: user.id, price },
+      { onConflict: 'user_id' }
+    );
+    if (r.error) throw r.error;
+
+    state.price = price;
+    state.payers = payers;
+    people.forEach(p => { p.fare_per_trip = price; p.pays = !!payers[p.name]; });
+    renderAll();
+    toast('Ajustes guardados');
+  } catch (e) {
+    toast('Error: ' + e.message);
+  }
+}
+
+/* ---------------- Navegación / eventos ---------------- */
+function showTab(tab) {
+  document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  document.querySelectorAll('[id^="tab-"]').forEach(s => s.classList.toggle('hidden', s.id !== 'tab-' + tab));
+}
+document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => showTab(b.dataset.tab)));
+
+$('dayPeople').addEventListener('change', e => {
+  const el = e.target;
+  if (!el.matches('input[type=checkbox][data-person]')) return;
+  saveTrip(selectedDate, el.dataset.person, el.dataset.way, el.checked);
+});
+
+$('dayDate').addEventListener('change', e => {
+  selectedDate = e.target.value || isoToday();
+  renderDay(); renderCalendar();
+});
+
+$('clearDay').addEventListener('click', () => {
+  if (confirm('¿Desmarcar todos los trayectos de este día?')) clearDay(selectedDate);
+});
+
+$('todayBtn').addEventListener('click', () => {
+  selectedDate = isoToday();
+  showTab('day');
+  renderAll();
+});
+
+$('prevMonth').addEventListener('click', () => { calMonth.setMonth(calMonth.getMonth() - 1); renderCalendar(); });
+$('nextMonth').addEventListener('click', () => { calMonth.setMonth(calMonth.getMonth() + 1); renderCalendar(); });
+
+$('calendar').addEventListener('click', e => {
+  const b = e.target.closest('[data-date]');
+  if (b) {
+    selectedDate = b.dataset.date;
+    showTab('day');
+    renderDay(); renderCalendar();
+  }
+});
+
+$('historySearch').addEventListener('input', renderHistory);
+$('historyRows').addEventListener('click', e => {
+  const edit = e.target.closest('[data-edit]'), del = e.target.closest('[data-delete]');
+  if (edit) {
+    selectedDate = edit.dataset.edit;
+    showTab('day');
+    renderDay(); renderCalendar();
+  }
+  if (del && confirm('¿Eliminar los viajes de esta fecha?')) deleteDay(del.dataset.delete);
+});
+
+$('paymentForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const amount = Number($('payAmount').value);
+  if (!(amount > 0)) return;
+  addPayment($('payPerson').value, $('payDate').value || isoToday(), amount, $('payNote').value.trim());
+  $('payAmount').value = '';
+  $('payNote').value = '';
+  toast('Pago guardado');
+});
+
+$('paymentRows').addEventListener('click', e => {
+  const b = e.target.closest('[data-paydelete]');
+  if (b && confirm('¿Eliminar este pago?')) deletePayment(b.dataset.paydelete);
+});
+
+$('saveSettings').addEventListener('click', () => {
+  const price = Math.max(0, Number($('price').value) || 0);
+  const payers = {
+    Alba: $('paysAlba').checked,
+    Claudia: $('paysClaudia').checked,
+    Salva: $('paysSalva').checked
+  };
+  saveSettings(price, payers);
+});
+
+/* ---------------- Exportar / importar / reset ---------------- */
+function download(filename, content, type) {
+  const a = document.createElement('a'), url = URL.createObjectURL(new Blob([content], { type }));
+  a.href = url; a.download = filename; a.click(); URL.revokeObjectURL(url);
+}
+
+$('backupBtn').addEventListener('click', () =>
+  download('copia-viajes-uni.json', JSON.stringify(state, null, 2), 'application/json')
+);
+
+$('exportBtn').addEventListener('click', () => {
+  const rows = [['Fecha','Alba ida','Alba vuelta','Claudia ida','Claudia vuelta','Salva ida','Salva vuelta','Deuda Alba','Deuda Claudia','Total día']];
+  Object.keys(state.trips).sort().forEach(d => {
+    const t = getTrip(d);
+    rows.push([
+      d,
+      ...names.flatMap(n => [t[n]?.ida ? 'Sí' : 'No', t[n]?.vuelta ? 'Sí' : 'No']),
+      tripCost(d, 'Alba').toFixed(2),
+      tripCost(d, 'Claudia').toFixed(2),
+      dayCost(d).toFixed(2)
+    ]);
+  });
+  const csv = '\ufeff' + rows.map(r => r.map(x => `"${String(x).replace(/"/g, '""')}"`).join(';')).join('\n');
+  download('viajes-universidad.csv', csv, 'text/csv;charset=utf-8');
+});
+
+$('importBtn').addEventListener('click', () => $('importFile').click());
+$('importFile').addEventListener('change', async e => {
+  const f = e.target.files[0];
+  if (!f) return;
+  try {
+    const data = JSON.parse(await f.text());
+    if (!data || typeof data.price !== 'number' || !data.payers || !data.trips || !Array.isArray(data.payments)) {
+      throw new Error('formato no válido');
+    }
+    if (!confirm('Esto reemplazará todos tus viajes y pagos actuales por los de la copia. ¿Continuar?')) {
+      e.target.value = '';
+      return;
+    }
+
+    // Vaciar datos del usuario
+    let r = await sb.from('trip_entries').delete().eq('user_id', user.id);
+    if (r.error) throw r.error;
+    r = await sb.from('payments').delete().eq('user_id', user.id);
+    if (r.error) throw r.error;
+
+    // Insertar viajes
+    const tripRows = [];
+    for (const [date, day] of Object.entries(data.trips)) {
+      for (const name of names) {
+        const t = day[name];
+        if (!t) continue;
+        let direction = null;
+        if (t.ida && t.vuelta) direction = 'ida_vuelta';
+        else if (t.ida) direction = 'ida';
+        else if (t.vuelta) direction = 'vuelta';
+        if (!direction) continue;
+        const p = people.find(x => x.name === name);
+        if (!p) continue;
+        tripRows.push({ participant_id: p.id, trip_date: date, direction });
+      }
+    }
+    if (tripRows.length) {
+      r = await sb.from('trip_entries').insert(tripRows);
+      if (r.error) throw r.error;
+    }
+
+    // Insertar pagos
+    const payRows = [];
+    for (const pay of data.payments) {
+      const p = people.find(x => x.name === pay.person);
+      if (!p || !pay.date || !(Number(pay.amount) > 0)) continue;
+      payRows.push({
         participant_id: p.id,
-        trip_date: $('date').value,
-        direction: next,
-        fare_applied: p.pays ? Number(p.fare_per_trip) : 0
+        payment_date: pay.date,
+        amount: Number(pay.amount),
+        note: pay.note || ''
       });
     }
+    if (payRows.length) {
+      r = await sb.from('payments').insert(payRows);
+      if (r.error) throw r.error;
+    }
+
+    // Precio y quién paga
+    for (const p of people) {
+      await sb.from('participants').update({
+        fare_per_trip: data.price,
+        pays: !!data.payers[p.name]
+      }).eq('id', p.id);
+    }
+    await sb.from('settings').upsert({ user_id: user.id, price: data.price }, { onConflict: 'user_id' });
+
+    await loadAll();
+    toast('Copia importada');
+  } catch (err) {
+    alert('No se pudo importar: ' + err.message);
+  }
+  e.target.value = '';
+});
+
+$('resetBtn').addEventListener('click', async () => {
+  if (!confirm('Esto borrará todos los viajes y pagos de tu cuenta en Supabase. ¿Continuar?')) return;
+  try {
+    let r = await sb.from('trip_entries').delete().eq('user_id', user.id);
     if (r.error) throw r.error;
-    await load();
+    r = await sb.from('payments').delete().eq('user_id', user.id);
+    if (r.error) throw r.error;
+    r = await sb.from('settings').delete().eq('user_id', user.id);
+    if (r.error) throw r.error;
+    for (const p of people) {
+      await sb.from('participants').update({ fare_per_trip: 2.5, pays: p.name !== 'Salva' }).eq('id', p.id);
+    }
+    await loadAll();
+    toast('Datos borrados');
   } catch (e) {
-    notice('msg', e.message);
+    toast('Error: ' + e.message);
+  }
+});
+
+/* ---------------- Auth ---------------- */
+async function handleAuthSuccess() {
+  showMain();
+  try {
+    await loadAll();
+  } catch (e) {
+    console.error(e);
+    toast('Error al cargar: ' + e.message);
   }
 }
 
-function renderManage() {
-  $('manageList').innerHTML = '';
-  people.forEach(p => {
-    let d = document.createElement('div');
-    d.className = 'person';
-    let t = document.createElement('span');
-    t.className = 'grow';
-    t.textContent = p.name + ' · ' + (p.pays ? 'Paga' : 'No paga') + ' · ' + eur(p.fare_per_trip);
-    let edit = document.createElement('button');
-    edit.textContent = 'Editar';
-    edit.onclick = async () => {
-      let n = prompt('Nombre', p.name);
-      if (n === null) return;
-      let f = prompt('Precio por trayecto', p.fare_per_trip);
-      if (f === null) return;
-      let pays = confirm('¿Paga? Aceptar = sí, Cancelar = no');
-      let r = await sb.from('participants').update({ name: n.trim(), fare_per_trip: Math.max(0, +f || 0), pays }).eq('id', p.id);
-      if (r.error) notice('msg', r.error.message);
-      else load();
-    };
-    let del = document.createElement('button');
-    del.textContent = 'Quitar';
-    del.onclick = async () => {
-      if (confirm('¿Quitar pasajero? Se conserva su historial.')) {
-        let r = await sb.from('participants').update({ archived: true }).eq('id', p.id);
-        if (r.error) notice('msg', r.error.message);
-        else load();
-      }
-    };
-    d.append(t, edit, del);
-    $('manageList').append(d);
+$('loginBtn').addEventListener('click', async () => {
+  if (!sb) return;
+  $('authMsg').textContent = '';
+  const { error } = await sb.auth.signInWithPassword({
+    email: $('email').value,
+    password: $('password').value
   });
-}
+  if (error) $('authMsg').textContent = error.message;
+});
 
-async function start() {
-  if (!configured) { authView(); return; }
+$('signupBtn').addEventListener('click', async () => {
+  if (!sb) return;
+  $('authMsg').textContent = '';
+  const { error } = await sb.auth.signUp({
+    email: $('email').value,
+    password: $('password').value
+  });
+  $('authMsg').textContent = error
+    ? error.message
+    : 'Cuenta creada. Si Supabase pide confirmación, revisa tu correo; si no, ya puedes iniciar sesión.';
+});
+
+$('logoutBtn').addEventListener('click', () => sb.auth.signOut());
+
+/* ---------------- Init ---------------- */
+async function init() {
   sb = window.supabase.createClient(SUPABASE_URL, KEY);
-  let { data: { session } } = await sb.auth.getSession();
+
+  const { data: { session } } = await sb.auth.getSession();
   if (session) {
     user = session.user;
-    appView();
-    try { await load(); } catch (e) { notice('msg', e.message); }
+    await handleAuthSuccess();
   } else {
-    authView();
+    showAuth();
   }
+
   sb.auth.onAuthStateChange((_event, s) => {
     if (s) {
       user = s.user;
-      appView();
-      setTimeout(() => load().catch(e => notice('msg', e.message)), 0);
+      setTimeout(() => handleAuthSuccess(), 0);
     } else {
-      authView();
+      user = null;
+      showAuth();
     }
   });
 }
 
-$('login').onclick = async () => {
-  if (!sb) return notice('authmsg', 'Configura SUPABASE_URL y KEY primero.');
-  const { error } = await sb.auth.signInWithPassword({ email: $('email').value, password: $('password').value });
-  if (error) notice('authmsg', error.message);
-};
-
-$('signup').onclick = async () => {
-  if (!sb) return notice('authmsg', 'Configura SUPABASE_URL y KEY primero.');
-  const { error } = await sb.auth.signUp({ email: $('email').value, password: $('password').value });
-  notice('authmsg', error ? error.message : 'Cuenta creada. Confirma tu correo si Supabase lo solicita.');
-};
-
-$('logout').onclick = () => sb.auth.signOut();
-$('date').onchange = () => load().catch(e => notice('msg', e.message));
-$('manage').onclick = () => $('settings').classList.remove('hidden');
-$('close').onclick = () => $('settings').classList.add('hidden');
-
-$('add').onclick = async () => {
-  if (!sb) return notice('msg', 'Configura Supabase primero.');
-  let name = $('newname').value.trim();
-  if (!name) return alert('Escribe un nombre');
-  let r = await sb.from('participants').insert({
-    name,
-    pays: $('pays').checked,
-    fare_per_trip: Math.max(0, +$('fare').value || 0)
-  });
-  if (r.error) notice('msg', r.error.message);
-  else { $('newname').value = ''; await load(); }
-};
-
-$('theme').onclick = () => {
-  let light = document.documentElement.dataset.theme !== 'light';
-  document.documentElement.dataset.theme = light ? 'light' : 'dark';
-  localStorage.setItem('tripu-theme', light ? 'light' : 'dark');
-};
-document.documentElement.dataset.theme = localStorage.getItem('tripu-theme') || 'dark';
-
-start();
+init().catch(e => {
+  console.error(e);
+  showAuth();
+  $('authMsg').textContent = 'Error de inicialización: ' + e.message;
+});
 </script>
 </body>
 </html>
