@@ -7,7 +7,7 @@
 <section class="card row"><div><div class="muted">Total a cobrar hoy</div><div id="total" class="total">0,00 €</div></div><div><div class="muted">Trayectos</div><b id="count">0</b></div></section>
 <section id="settings" class="card hidden"><div class="row"><h2>Personalizar pasajeros</h2><button id="close">Cerrar</button></div><label>Nombre</label><input id="newname" placeholder="Nombre"><div class="grid"><div><label>Precio por trayecto (€)</label><input id="fare" type="number" min="0" step=".01" value="2.50"></div><div class="row"><label><input id="pays" type="checkbox" checked style="width:auto"> Paga</label></div></div><button class="primary" id="add">Añadir pasajero</button><div id="manageList"></div></section></main><p id="msg" class="notice hidden"></p></div>
 <script>
-const URL='PEGA_AQUI_TU_SUPABASE_URL',KEY='PEGA_AQUI_TU_SUPABASE_ANON_KEY';const $=x=>document.getElementById(x);let sb,user,people=[],entries=[];
+const URL='https://rkqernwonfoxrrteyisa.supabase.co',KEY='sb_publishable_xY53Hvr1T0rpqpHMblohpw_DVZZiAV7';const $=x=>document.getElementById(x);let sb,user,people=[],entries=[];
 const configured=URL.startsWith('https://')&&!URL.includes('PEGA_AQUI')&&!KEY.includes('PEGA_AQUI');
 const localDate=d=>new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10);
 $('date').value=localDate(new Date());const eur=n=>new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'}).format(n||0);
